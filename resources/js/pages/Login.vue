@@ -1,6 +1,5 @@
 <template>
     <div class="min-h-screen flex items-center justify-center relative bg-black font-[Poppins] overflow-hidden">
-  
       <!-- 🌍 Rotating Global Map Background -->
       <div class="absolute inset-0 z-0 opacity-10 pointer-events-none">
         <img
@@ -12,7 +11,7 @@
   
       <!-- 🔒 Login Card -->
       <v-card
-        class="relative z-10 w-full max-w-md py-10 px-8 mx-auto backdrop-blur-lg bg-white/10 border border-white/10 rounded-3xl shadow-xl"
+        class="relative z-10 w-full max-w-md py-10 px-8 mx-auto backdrop-blur-lg bg-white/5 border border-white/10 rounded-3xl shadow-xl"
         elevation="10"
       >
         <div class="text-center mb-8 space-y-2">
@@ -26,8 +25,7 @@
             label="Email"
             type="email"
             variant="outlined"
-            color="primary"
-            class="bg-white/80 rounded-md"
+            class="custom-input"
             hide-details
             density="comfortable"
           />
@@ -37,8 +35,7 @@
             :type="showPassword ? 'text' : 'password'"
             label="Password"
             variant="outlined"
-            color="primary"
-            class="bg-white/80 rounded-md"
+            class="custom-input"
             hide-details
             density="comfortable"
             :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
@@ -67,20 +64,19 @@
   </template>
   
   <script setup>
-  import { ref, reactive, onMounted } from "vue";
-  import { useRouter } from "vue-router";
-  import { useAuthStore } from "../stores/auth";
-  import { useSnackbar } from "../composables/snackbar";
-  import config from "../constants/config";
-  import { useLoading } from "../composables/loading";
+  import { ref, reactive, onMounted } from 'vue';
+  import { useRouter } from 'vue-router';
+  import { useAuthStore } from '../stores/auth';
+  import { useSnackbar } from '../composables/snackbar';
+  import { useLoading } from '../composables/loading';
   
-  const loader = useLoading();
   const router = useRouter();
   const { getToken, getUser } = useAuthStore();
+  const loader = useLoading();
   
   const form = reactive({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   
   const showPassword = ref(false);
@@ -95,12 +91,12 @@
   async function login() {
     loader.load();
     try {
-      await axios.post("/login", form);
-      localStorage.setItem("auth", true);
+      await axios.post('/login', form);
+      localStorage.setItem('auth', true);
       await getUser();
-      router.replace("/dashboard");
+      router.replace('/dashboard');
     } catch (error) {
-      useSnackbar(error?.response?.data?.message || "Login failed", "error");
+      useSnackbar(error?.response?.data?.message || 'Login failed', 'error');
     } finally {
       loader.quit();
     }
@@ -116,8 +112,32 @@
       transform: rotate(360deg);
     }
   }
+  
   .animate-spin-slow {
     animation: spin-slow 200s linear infinite;
+  }
+  
+  /* ✅ Custom white-input Vuetify styling */
+  .custom-input .v-field {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .custom-input .v-label {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+  
+  .custom-input input {
+    color: white !important;
+  }
+  
+  .custom-input .v-field__input {
+    color: white !important;
+  }
+  
+  .custom-input .v-field__outline {
+    --v-field-border-color: rgba(255, 255, 255, 0.5);
   }
   </style>
   

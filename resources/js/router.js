@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "./stores/auth";
-
+import CommunityTeachers from './pages/community/Teachers.vue';
+import CommunityLearners from './pages/community/Learners.vue';
+import CommunityParents from './pages/community/Parents.vue';
 import Home from "./pages/Home.vue";
 import Tours from "./pages/Tours.vue";
 import Login from './pages/Login.vue'
@@ -41,6 +43,21 @@ const routes = [
         name: "Login",
         beforeEnter: ifNotAuthenticated
     },
+    {
+        path: '/community/teachers',
+        name: 'CommunityTeachers',
+        component: CommunityTeachers,
+      },
+      {
+        path: '/community/learners',
+        name: 'CommunityLearners',
+        component: CommunityLearners,
+      },
+      {
+        path: '/community/parents',
+        name: 'CommunityParents',
+        component: CommunityParents,
+      },
 
 ];
 

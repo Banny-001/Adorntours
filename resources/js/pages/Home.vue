@@ -5,7 +5,7 @@
             class="fixed top-0 left-0 w-full h-full z-0 overflow-hidden opacity-10 pointer-events-none"
         >
             <img
-                src="/images/global-map.png"
+                src="/images/globe-map.jpeg"
                 class="absolute w-full h-full object-cover animate-spin-slow scale-250"
                 alt="Rotating Global Map"
             />
