@@ -5,7 +5,13 @@ import CommunityLearners from './pages/community/Learners.vue';
 import CommunityParents from './pages/community/Parents.vue';
 import Home from "./pages/Home.vue";
 import Tours from "./pages/Tours.vue";
-import Login from './pages/Login.vue'
+import Login from './pages/Login.vue';
+import Blog from './pages/Blog.vue';
+import Contact from './pages/Contact.vue';
+import Team from './pages/Team.vue';
+import Dashboard from './pages/Dashboard.vue';
+import AdminBlogs from './pages/AdminBlogs.vue';
+
 
 const ifNotAuthenticated = (to, from) => {
     const authStore = useAuthStore();
@@ -35,6 +41,37 @@ const routes = [
         path: "/tours",
         component: Tours,
         name: "Tours",
+        beforeEnter: ifNotAuthenticated
+    },
+    {
+        path: "/about/team",
+        component: Team,
+        name: "Team",
+        beforeEnter: ifNotAuthenticated
+    },
+    {
+        path: "/dashboard",
+        component: Dashboard,
+        name: "Dashboard",
+        beforeEnter: ifAuthenticated
+    },
+    {
+        path: "/admin/blogs",
+        component: AdminBlogs,
+        name: "AdminBlogs",
+        beforeEnter: ifAuthenticated
+    },
+    
+    {
+        path: "/contact",
+        component: Contact,
+        name: "Contact",
+        beforeEnter: ifNotAuthenticated
+    },
+    {
+        path: "/blog",
+        component: Blog,
+        name: "Blog",
         beforeEnter: ifNotAuthenticated
     },
     {

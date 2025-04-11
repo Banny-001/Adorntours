@@ -1,194 +1,392 @@
 <template>
-    <div
-        class="bg-white font-[Poppins] text-[#201444] pt-[100px] overflow-x-hidden"
-    >
-        <!-- 🌍 Hero Section -->
+    <div class="font-sans bg-gray-50">
+        <!-- Hero Section -->
         <section
-            class="relative min-h-[90vh] flex items-center justify-center bg-cover bg-center px-6"
-            style="background-image: url('/images/family-hero.jpg')"
+            class="relative min-h-[80vh] bg-cover bg-center flex items-center"
+            style="background-image: url('/images/parents-hero.jpg')"
         >
-            <div class="absolute inset-0 bg-black/50"></div>
-            <div
-                class="relative z-10 text-center max-w-4xl mx-auto animate-fade-in"
-            >
-                <h1
-                    class="text-5xl md:text-6xl font-extrabold text-white leading-tight"
-                >
-                    Travel That Brings Families Together
-                </h1>
-                <p class="mt-6 text-white text-xl leading-relaxed">
-                    Create unforgettable experiences through safe, meaningful
-                    and enriching adventures.
-                </p>
+            <div class="absolute inset-0 bg-purple-900/70"></div>
+            <div class="relative z-10 container mx-auto px-6 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <div class="flex justify-center mb-6">
+                       
+                        <h1
+                            class="text-4xl md:text-5xl lg:text-6xl font-bold text-white"
+                        >
+                            For Parents
+                        </h1>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                        Safe, Educational Travel Experiences for Your Child
+                    </h2>
+                    <p class="text-xl text-white/90 mb-8">
+                        Trusted by thousands of parents to provide
+                        transformative global learning adventures.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <v-btn
+                            color="primary"
+                            size="x-large"
+                            rounded="lg"
+                            class="px-8 py-3 font-semibold"
+                            :to="{ path: '/parent-faq' }"
+                        >
+                            <v-icon left>mdi-help-circle</v-icon>
+                            Parent FAQs
+                        </v-btn>
+                        <v-btn
+                            variant="outlined"
+                            color="white"
+                            size="x-large"
+                            rounded="lg"
+                            class="px-8 py-3 font-semibold"
+                            :to="{ path: '/safety' }"
+                        >
+                            <v-icon left>mdi-shield-check</v-icon>
+                            Safety Info
+                        </v-btn>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- 🛡️ Safety Section -->
-        <section
-            class="py-28 px-6 md:px-20 bg-gradient-to-b from-white via-white to-purple-50"
-        >
-            <div class="max-w-5xl mx-auto text-center space-y-10">
-                <h2 class="text-4xl font-bold animate-fade-in">
-                    Safety Comes First
-                </h2>
-                <p
-                    class="text-lg text-gray-700 leading-relaxed animate-fade-in delay-200"
-                >
-                    From the moment your child leaves home to the moment they
-                    return, we prioritize safety above all. With trained staff,
-                    vetted accommodations, and 24/7 support, you can focus on
-                    what really matters—watching your child grow.
-                </p>
-                <img
-                    src="/images/safety.jpg"
-                    class="rounded-2xl shadow-xl w-full max-h-[400px] object-cover animate-fade-in delay-300"
-                />
+        <!-- Why Parents Choose Us -->
+        <section class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+                    >
+                        Why Parents Trust Our Educational Tours
+                    </h2>
+                    <p class="text-lg text-gray-600">
+                        We combine safety, education, and personal growth to
+                        create meaningful travel experiences.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div
+                        class="bg-white rounded-xl shadow-md p-8 border border-gray-100 hover:shadow-lg transition-all"
+                    >
+                        <div class="text-purple-600 mb-4">
+                            <v-icon size="48">mdi-shield-lock</v-icon>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">
+                            Safety First
+                        </h3>
+                        <p class="text-gray-600">
+                            24/7 support, vetted accommodations, and trained
+                            staff ensure your child's wellbeing throughout their
+                            journey.
+                        </p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-xl shadow-md p-8 border border-gray-100 hover:shadow-lg transition-all"
+                    >
+                        <div class="text-purple-600 mb-4">
+                            <v-icon size="48">mdi-school</v-icon>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">
+                            Educational Value
+                        </h3>
+                        <p class="text-gray-600">
+                            Curriculum-aligned experiences that complement
+                            classroom learning and broaden perspectives.
+                        </p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-xl shadow-md p-8 border border-gray-100 hover:shadow-lg transition-all"
+                    >
+                        <div class="text-purple-600 mb-4">
+                            <v-icon size="48">mdi-account-group</v-icon>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">
+                            Personal Growth
+                        </h3>
+                        <p class="text-gray-600">
+                            Students return more confident, independent, and
+                            culturally aware.
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- 📚 Education Meets Adventure -->
-        <section
-            class="py-28 px-6 md:px-20 bg-purple-50 bg-opacity-60 relative"
-        >
-            <div class="absolute inset-0 z-0">
-                <img
-                    src="/images/globe-map.jpeg"
-                    alt="Map Background"
-                    class="w-full h-full object-cover opacity-10 animate-spin-slow blur-md scale-125 pointer-events-none"
-                />
-            </div>
-            <div class="relative z-10 max-w-5xl mx-auto space-y-10 text-center">
-                <h2 class="text-4xl font-bold animate-slide-in-left">
-                    Education Meets Adventure
-                </h2>
-                <p
-                    class="text-lg text-gray-700 leading-relaxed animate-fade-in"
-                >
-                    Our journeys combine cultural exploration, historical
-                    insights, and personal growth. Every location becomes a
-                    living classroom, helping your child see the world in a new
-                    way.
-                </p>
-                <img
-                    src="/images/education-adventure.jpg"
-                    class="rounded-2xl shadow-lg w-full max-h-[400px] object-cover animate-fade-in delay-300"
-                />
+        <!-- Safety Deep Dive -->
+        <section class="py-16 md:py-24 bg-purple-50">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row items-center gap-12">
+                    <div class="lg:w-1/2">
+                        <v-img
+                            src="/images/parents-safety.jpg"
+                            class="rounded-xl shadow-lg"
+                            aspect-ratio="16/9"
+                            cover
+                        ></v-img>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <h2
+                            class="text-3xl md:text-4xl font-bold text-gray-900 mb-6"
+                        >
+                            Our Comprehensive Safety Approach
+                        </h2>
+                        <p class="text-lg text-gray-600 mb-8">
+                            We implement multiple layers of protection to give
+                            you peace of mind while your child explores the
+                            world.
+                        </p>
+
+                        <div class="space-y-6">
+                            <div
+                                v-for="(item, i) in safetyFeatures"
+                                :key="i"
+                                class="flex items-start"
+                            >
+                                <div
+                                    class="flex-shrink-0 bg-purple-100 rounded-lg p-2 mr-4"
+                                >
+                                    <v-icon color="purple">{{
+                                        item.icon
+                                    }}</v-icon>
+                                </div>
+                                <div>
+                                    <h3
+                                        class="text-lg font-semibold text-gray-900"
+                                    >
+                                        {{ item.title }}
+                                    </h3>
+                                    <p class="text-gray-600">
+                                        {{ item.description }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- 🧘🏽 Stress-Free Planning -->
-        <section class="py-28 px-6 md:px-20 bg-white">
-            <div class="max-w-5xl mx-auto text-center space-y-10">
-                <h2 class="text-4xl font-bold animate-slide-in-right">
-                    Planning Made Simple
-                </h2>
-                <p
-                    class="text-lg text-gray-700 leading-relaxed animate-fade-in"
+        <!-- Educational Benefits -->
+        <section class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+                    >
+                        More Than Just a Trip
+                    </h2>
+                    <p class="text-lg text-gray-600">
+                        Our tours are designed to deliver lasting educational
+                        impact.
+                    </p>
+                </div>
+
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
                 >
-                    We handle all the logistics—so you don’t have to. From
-                    flights and meals to guided excursions and accommodations,
-                    our family-focused team ensures a seamless experience from
-                    start to finish.
-                </p>
-                <img
-                    src="/images/planning-family.jpg"
-                    class="rounded-2xl shadow-lg w-full max-h-[400px] object-cover animate-fade-in delay-300"
-                />
+                    <div
+                        v-for="(benefit, i) in educationalBenefits"
+                        :key="i"
+                        class="bg-gray-50 p-6 rounded-lg border border-gray-200 hover:border-purple-400 transition-all"
+                    >
+                        <div class="text-purple-600 mb-3">
+                            <v-icon size="36">{{ benefit.icon }}</v-icon>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                            {{ benefit.title }}
+                        </h3>
+                        <p class="text-gray-600 text-sm">
+                            {{ benefit.description }}
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- 👨‍👩‍👧 Call to Action -->
-        <section
-            class="py-28 px-6 md:px-20 bg-gradient-to-b from-white to-purple-100 text-center relative overflow-hidden"
-        >
-            <div class="absolute inset-0">
-                <img
-                    src="/images/global-map.png"
-                    class="w-full h-full object-cover opacity-5 animate-spin-slow blur-md scale-150 pointer-events-none"
-                />
+        <!-- Parent Testimonials -->
+        <section class="py-16 md:py-24 bg-purple-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+                    >
+                        What Parents Say
+                    </h2>
+                    <p class="text-lg text-gray-600">
+                        Hear from families who have experienced our educational
+                        tours.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div
+                        v-for="(testimonial, i) in parentTestimonials"
+                        :key="i"
+                        class="bg-white p-8 rounded-xl shadow-md"
+                    >
+                        <div class="flex items-center mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 mr-4"
+                            >
+                                <v-icon>mdi-account</v-icon>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">
+                                    {{ testimonial.name }}
+                                </h4>
+                                <p class="text-sm text-gray-500">
+                                    Parent of {{ testimonial.student }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex mb-4">
+                            <v-rating
+                                v-model="testimonial.rating"
+                                color="amber"
+                                readonly
+                                size="small"
+                                density="compact"
+                            ></v-rating>
+                        </div>
+                        <p class="text-gray-700 italic">
+                            "{{ testimonial.quote }}"
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div
-                class="relative z-10 max-w-4xl mx-auto space-y-6 animate-fade-in"
-            >
-                <h2 class="text-4xl font-bold">
-                    Ready to Start Your Family’s Journey?
-                </h2>
-                <p class="text-lg text-gray-700">
-                    Our tour consultants are ready to help you plan the perfect
-                    experience tailored to your family's dreams.
-                </p>
-                <v-btn
-                    color="primary"
-                    class="rounded-full text-white px-10 py-4 text-lg shadow-lg hover:brightness-110"
-                    to="/contact"
-                >
-                    Contact Our Family Tour Experts
-                </v-btn>
+        </section>
+
+        <!-- CTA Section -->
+        <section
+            class="py-16 md:py-24 bg-gradient-to-r from-purple-600 to-indigo-700 text-white"
+        >
+            <div class="container mx-auto px-6 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                        Have Questions About Our Tours?
+                    </h2>
+                    <p class="text-xl mb-8 text-white/90">
+                        Our parent support team is ready to address all your
+                        concerns and help you make an informed decision.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <v-btn
+                            color="white"
+                            size="x-large"
+                            rounded="lg"
+                            class="px-8 py-3 font-semibold text-purple-700"
+                            :to="{ path: '/contact' }"
+                        >
+                            <v-icon left>mdi-email</v-icon>
+                            Email Our Team
+                        </v-btn>
+                        <v-btn
+                            variant="outlined"
+                            color="white"
+                            size="x-large"
+                            rounded="lg"
+                            class="px-8 py-3 font-semibold"
+                            :to="{ path: '/parent-resources' }"
+                        >
+                            <v-icon left>mdi-file-document</v-icon>
+                            View Resources
+                        </v-btn>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
 </template>
 
 <script setup>
-// No logic needed
+import adorn from "@/images/adorn.png"
+const safetyFeatures = [
+    {
+        icon: "mdi-account-supervisor",
+        title: "Trained Group Leaders",
+        description:
+            "Experienced educators with first-aid certification and safety training",
+    },
+    {
+        icon: "mdi-cellphone",
+        title: "24/7 Support",
+        description:
+            "Dedicated emergency phone line available throughout the tour",
+    },
+    {
+        icon: "mdi-bed",
+        title: "Vetted Accommodations",
+        description:
+            "Hotels and residences selected for safety and student-friendly environments",
+    },
+    {
+        icon: "mdi-bus",
+        title: "Secure Transportation",
+        description:
+            "Professional drivers and maintained vehicles for all ground travel",
+    },
+];
+
+const educationalBenefits = [
+    {
+        icon: "mdi-globe-model",
+        title: "Cultural Immersion",
+        description:
+            "Authentic interactions with local communities and traditions",
+    },
+    {
+        icon: "mdi-history",
+        title: "Historical Context",
+        description: "Firsthand experiences at significant historical sites",
+    },
+    {
+        icon: "mdi-chart-line",
+        title: "Academic Enhancement",
+        description:
+            "Reinforces classroom learning through real-world applications",
+    },
+    {
+        icon: "mdi-account-arrow-up",
+        title: "Personal Growth",
+        description: "Develops independence, confidence, and global awareness",
+    },
+];
+
+const parentTestimonials = [
+    {
+        name: "Jennifer K.",
+        student: "Sophomore, age 16",
+        quote: "My daughter returned from her trip to Spain more confident and curious about the world. The daily updates from the tour leaders gave me peace of mind throughout her journey.",
+        rating: 5,
+    },
+    {
+        name: "Michael T.",
+        student: "Junior, age 17",
+        quote: "The educational depth of the Japan tour exceeded our expectations. Our son came home with a new appreciation for cultural differences and even started learning Japanese!",
+        rating: 5,
+    },
+];
 </script>
 
 <style scoped>
-@keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slide-in-left {
-    from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes slide-in-right {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.animate-fade-in {
-    animation: fade-in 1s ease-out forwards;
-}
-
-.animate-slide-in-left {
-    animation: slide-in-left 1s ease-out forwards;
-}
-
-.animate-slide-in-right {
-    animation: slide-in-right 1s ease-out forwards;
-}
-
 .animate-spin-slow {
-    animation: spin-slow 200s linear infinite;
+    animation: spin 15s linear infinite;
 }
 
-@keyframes spin-slow {
-    0% {
+@keyframes spin {
+    from {
         transform: rotate(0deg);
     }
-    100% {
+    to {
         transform: rotate(360deg);
     }
+}
+
+/* Smooth scrolling for anchor links */
+html {
+    scroll-behavior: smooth;
 }
 </style>

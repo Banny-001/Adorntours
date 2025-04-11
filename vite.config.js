@@ -1,20 +1,20 @@
-// vite.config.js
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import path from 'path'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import vuetify from 'vite-plugin-vuetify';
+import laravel from 'laravel-vite-plugin';
 
 export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'resources/js'),
+  plugins: [
+    vue(),
+    vuetify({ autoImport: true }),
+    laravel({
+      input: ['resources/css/app.css', 'resources/js/app.js'],
+      refresh: true,
+    }),
+  ],
+  server: {
+    watch: {
+      usePolling: true,
     },
   },
-  build: {
-    manifest: true,
-    outDir: 'public/build',
-    rollupOptions: {
-      input: 'resources/js/app.js',
-    },
-  },
-})
+});
