@@ -24,6 +24,7 @@
     },
     "dependencies": {
         "@casl/ability": "^6.7.3",
+        "@mdi/font": "^7.4.47",
         "chart.js": "^3.9.1",
         "pinia": "^3.0.2",
         "vite-plugin-vuetify": "^2.1.1",

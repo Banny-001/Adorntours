@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CustomTourController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\AuthenticationController;
@@ -17,12 +18,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 Route::resource('tours', TourController::class);
 Route::resource('blogs', BlogController::class);
+Route::resource('contact', ContactController::class);
+Route::resource('custom-tours', CustomTourController::class);
 
 
 Route::post('login', [AuthenticationController::class, 'login']);
 Route::post('logout', [AuthenticationController::class, 'logout']);
+Route::post('custom-tours', [CustomTourController::class, 'store']);
+Route::get('latest-contacts', [ContactController::class, 'latest']);
+Route::get('latest-custom-tours', [CustomTourController::class, 'latest']);
+Route::get('/countries', [CountryController::class, 'index']);
 
-Route::post('contacts/latest', [ContactController::class, 'latest']);
-Route::post('custom-tours/latest', [CustomTourController::class, 'latest']);
 
 

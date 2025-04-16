@@ -9,10 +9,9 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/adorn.png">
-  <link rel="icon" type="image/png" sizes="64x64" href="/images/adorn.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/adorn.png">
-
+  <link rel="icon" type="image/png" sizes="500x500" href="/images/adorn.png">
+  <link rel="apple-touch-icon" sizes="500x500" href="/images/adorn.png">
+  <link rel="preload" href="/images/adorn.webm" as="video" type="video/webm">
   <style>
     body {
       font-family: 'Poppins', sans-serif;

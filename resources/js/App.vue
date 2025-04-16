@@ -20,6 +20,6 @@ const { authenticated } = storeToRefs(useAuthStore());
       <Loading />
     </v-main>
 
-    <Footer />
+    <Footer v-if="!authenticated" />
   </v-app>
 </template>

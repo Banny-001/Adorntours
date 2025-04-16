@@ -1,28 +1,28 @@
 <template>
     <header
-        class="fixed top-0 left-0 w-full z-50 backdrop-filter backdrop-blur-lg bg-white/90 shadow-sm"
+        class="fixed top-0 left-0 w-full z-50 bg-white bg-opacity-90 shadow-sm"
     >
         <div
             class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between"
         >
-            <!-- Logo with Spinning Globe Image -->
-            <router-link
-                to="/"
-                class="flex items-center gap-2 group focus:outline-none"
-            >
-                <div class="relative w-10 h-10">
-                    <img
-                        :src="adorn"
-                        alt="Adorn Tours Logo"
-                        class="w-full h-full object-contain animate-spin-3d"
-                    />
-                </div>
-                <span class="text-xl sm:text-2xl font-bold text-gray-900">
-                    Adorn
-                </span>
+            <!-- Logo with high-quality MP4 -->
+            <router-link to="/" class="flex items-center focus:outline-none">
+                <video
+                    autoplay
+                    loop
+                    muted
+                    playsinline
+                    preload="auto"
+                    width="100"
+                    height="60"
+                    class="w-[160px] h-[90px] object-contain"
+                    aria-hidden="true"
+                >
+                    <source :src="adornVideo" type="video/webm" />
+                </video>
             </router-link>
 
-            <!-- Desktop Menu -->
+            <!-- Desktop Navigation -->
             <nav class="hidden md:flex items-center gap-6">
                 <div
                     v-for="(item, index) in navItems"
@@ -33,7 +33,7 @@
                 >
                     <template v-if="item.children">
                         <button
-                            class="flex items-center text-sm font-medium text-gray-800 hover:text-primary-600 transition py-2 px-1 group focus:outline-none"
+                            class="flex items-center text-sm font-medium text-gray-800 hover:text-purple-600 transition py-2 px-1 group focus:outline-none"
                             aria-haspopup="true"
                             :aria-expanded="openDropdown === index"
                         >
@@ -52,93 +52,91 @@
                                 />
                             </svg>
                         </button>
+
+                        <transition
+                            enter-active-class="transition duration-200 ease-out"
+                            enter-from-class="opacity-0 translate-y-1"
+                            enter-to-class="opacity-100 translate-y-0"
+                            leave-active-class="transition duration-150 ease-in"
+                            leave-from-class="opacity-100 translate-y-0"
+                            leave-to-class="opacity-0 translate-y-1"
+                        >
+                            <div
+                                v-if="item.children && openDropdown === index"
+                                class="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-purple-100 overflow-hidden z-50"
+                                role="menu"
+                            >
+                                <div class="py-1">
+                                    <router-link
+                                        v-for="(child, cIdx) in item.children"
+                                        :key="cIdx"
+                                        :to="child.route"
+                                        @click="openDropdown = null"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-all duration-200 flex items-center focus:outline-none"
+                                        role="menuitem"
+                                    >
+                                        <span
+                                            class="w-1.5 h-1.5 rounded-full bg-purple-400 mr-2"
+                                        ></span>
+                                        {{ child.label }}
+                                    </router-link>
+                                </div>
+                            </div>
+                        </transition>
                     </template>
+
                     <router-link
                         v-else
                         :to="item.route"
-                        class="text-sm font-medium text-gray-800 hover:text-primary-600 transition py-2 px-1 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-primary-600 after:transition-all after:duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:rounded-md"
+                        class="text-sm font-medium text-gray-800 hover:text-purple-600 transition py-2 px-1 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-purple-600 after:transition-all after:duration-300 focus:outline-none"
                         active-class="after:w-full"
                     >
                         {{ item.label }}
                     </router-link>
-
-                    <!-- Dropdown with Animation -->
-                    <transition
-                        enter-active-class="transition duration-200 ease-out"
-                        enter-from-class="opacity-0 translate-y-1"
-                        enter-to-class="opacity-100 translate-y-0"
-                        leave-active-class="transition duration-150 ease-in"
-                        leave-from-class="opacity-100 translate-y-0"
-                        leave-to-class="opacity-0 translate-y-1"
-                    >
-                        <div
-                            v-if="item.children && openDropdown === index"
-                            class="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-primary-100 overflow-hidden z-50"
-                            role="menu"
-                        >
-                            <div class="py-1">
-                                <router-link
-                                    v-for="(child, cIdx) in item.children"
-                                    :key="cIdx"
-                                    :to="child.route"
-                                    @click="openDropdown = null"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-primary-50 hover:to-indigo-50 hover:text-primary-600 transition-all duration-200 flex items-center focus:outline-none focus:bg-primary-50"
-                                    role="menuitem"
-                                >
-                                    <span
-                                        class="w-1.5 h-1.5 rounded-full bg-primary-400 mr-2 transition-opacity duration-200 group-hover:opacity-100 opacity-0"
-                                    ></span>
-                                    {{ child.label }}
-                                </router-link>
-                            </div>
-                        </div>
-                    </transition>
                 </div>
             </nav>
 
-            <!-- CTA Buttons -->
+            <!-- Desktop CTA Buttons -->
             <div class="hidden md:flex items-center gap-4">
                 <router-link
                     to="/login"
-                    class="text-sm font-medium text-gray-700 hover:text-primary-600 transition focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-md px-2 py-1"
+                    class="text-sm font-medium text-gray-700 hover:text-purple-600 transition focus:outline-none"
                 >
                     Login
                 </router-link>
-                <v-btn
-                    color="primary"
-                    class="rounded-full text-sm px-6 py-2 bg-gradient-to-r from-primary-600 to-indigo-600 hover:from-indigo-600 hover:to-primary-700 border-none shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                <router-link
+                    to="/register"
+                    class="text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full px-6 py-2 shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none"
                 >
                     Register
-                </v-btn>
+                </router-link>
             </div>
 
-            <!-- Mobile Toggle - Animated Hamburger -->
-            <div class="md:hidden">
-                <button
-                    @click="drawer = !drawer"
-                    class="focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-md p-1"
-                    aria-label="Toggle menu"
-                    :aria-expanded="drawer"
-                >
-                    <div class="w-6 h-5 flex flex-col justify-between relative">
-                        <span
-                            class="w-full h-0.5 bg-primary-600 rounded-lg transition-all duration-300"
-                            :class="drawer ? 'rotate-45 translate-y-2' : ''"
-                        ></span>
-                        <span
-                            class="w-full h-0.5 bg-primary-600 rounded-lg transition-all duration-300"
-                            :class="drawer ? 'opacity-0' : 'opacity-100'"
-                        ></span>
-                        <span
-                            class="w-full h-0.5 bg-primary-600 rounded-lg transition-all duration-300"
-                            :class="drawer ? '-rotate-45 -translate-y-2' : ''"
-                        ></span>
-                    </div>
-                </button>
-            </div>
+            <!-- Mobile Menu Button - Purple and Always Visible -->
+            <button
+                @click="drawer = !drawer"
+                class="md:hidden focus:outline-none p-1"
+                :aria-expanded="drawer"
+                aria-label="Toggle navigation menu"
+            >
+                <div class="w-6 h-5 flex flex-col justify-between relative">
+                    <span
+                        class="w-full h-0.5 bg-purple-600 rounded transition-all duration-300"
+                        :class="drawer ? 'rotate-45 translate-y-2' : ''"
+                    ></span>
+                    <span
+                        class="w-full h-0.5 bg-purple-600 rounded transition-all duration-300"
+                        :class="drawer ? 'opacity-0' : 'opacity-100'"
+                    ></span>
+                    <span
+                        class="w-full h-0.5 bg-purple-600 rounded transition-all duration-300"
+                        :class="drawer ? '-rotate-45 -translate-y-2' : ''"
+                    ></span>
+                </div>
+            </button>
         </div>
 
-        <!-- Mobile Drawer - Enhanced -->
+        <!-- Mobile Drawer -->
         <transition
             enter-active-class="transition-all duration-300 ease-out"
             enter-from-class="opacity-0 -translate-x-full"
@@ -149,7 +147,7 @@
         >
             <div
                 v-if="drawer"
-                class="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm md:hidden"
+                class="fixed inset-0 z-50 bg-black/30 md:hidden"
                 @click="drawer = false"
             >
                 <div
@@ -158,25 +156,30 @@
                 >
                     <div class="p-5 h-full flex flex-col">
                         <!-- Mobile Logo -->
-                        <div class="flex items-center gap-2 mb-8">
-                            <div class="relative w-8 h-8">
-                                <img
-                                    :src="adorn"
-                                    alt="Adorn Tours Logo"
-                                    class="w-full h-full object-contain animate-spin-3d"
-                                />
-                            </div>
-                            <span
-                                class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-indigo-600"
+                        <div class="flex items-center mb-8">
+                            <video
+                                autoplay
+                                loop
+                                muted
+                                playsinline
+                                class="h-8 w-auto"
+                                aria-hidden="true"
                             >
-                                Adorn Tours
-                            </span>
+                                <source
+                                    src="@/images/adorn.webm"
+                                    type="video/webm"
+                                />
+                                <img
+                                    src="@/images/adorn.png"
+                                    alt="Adorn Logo"
+                                    class="h-8 w-auto animate-spin"
+                                />
+                            </video>
                         </div>
 
                         <!-- Mobile Navigation -->
                         <div class="overflow-y-auto flex-1">
                             <nav class="space-y-1">
-                                <!-- Regular Menu Items -->
                                 <div
                                     v-for="(item, index) in navItems"
                                     :key="index"
@@ -185,7 +188,7 @@
                                     <template v-if="item.children">
                                         <button
                                             @click="toggleMobileSubmenu(index)"
-                                            class="flex items-center justify-between w-full py-2 px-3 text-left text-gray-800 rounded-md hover:bg-primary-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                                            class="flex items-center justify-between w-full py-2 px-3 text-left text-gray-800 rounded-md hover:bg-purple-50 transition-colors duration-200 focus:outline-none"
                                             :aria-expanded="
                                                 mobileOpenSubmenu === index
                                             "
@@ -213,7 +216,6 @@
                                             </svg>
                                         </button>
 
-                                        <!-- Submenu Items with Animation -->
                                         <transition
                                             enter-active-class="transition-all duration-300 ease-out"
                                             enter-from-class="max-h-0 opacity-0"
@@ -226,7 +228,7 @@
                                                 v-if="
                                                     mobileOpenSubmenu === index
                                                 "
-                                                class="overflow-hidden ml-4 mt-1 border-l-2 border-primary-100 pl-2"
+                                                class="overflow-hidden ml-4 mt-1 border-l-2 border-purple-100 pl-2"
                                             >
                                                 <router-link
                                                     v-for="(
@@ -234,12 +236,8 @@
                                                     ) in item.children"
                                                     :key="i"
                                                     :to="child.route"
-                                                    class="block py-2 px-3 text-sm text-gray-600 hover:text-primary-600 transition-colors duration-200 rounded-md hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                                                    @click="
-                                                        drawer = false;
-                                                        mobileOpenSubmenu =
-                                                            null;
-                                                    "
+                                                    class="block py-2 px-3 text-sm text-gray-600 hover:text-purple-600 transition-colors duration-200 rounded-md hover:bg-purple-50 focus:outline-none"
+                                                    @click="closeMobileMenu"
                                                 >
                                                     {{ child.label }}
                                                 </router-link>
@@ -250,8 +248,8 @@
                                     <router-link
                                         v-else
                                         :to="item.route"
-                                        class="block py-2 px-3 font-medium text-gray-800 hover:text-primary-600 hover:bg-primary-50 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                                        @click="drawer = false"
+                                        class="block py-2 px-3 font-medium text-gray-800 hover:text-purple-600 hover:bg-purple-50 rounded-md transition-colors duration-200 focus:outline-none"
+                                        @click="closeMobileMenu"
                                     >
                                         {{ item.label }}
                                     </router-link>
@@ -265,15 +263,15 @@
                         >
                             <router-link
                                 to="/login"
-                                class="block w-full py-2.5 text-center font-medium text-primary-600 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                                @click="drawer = false"
+                                class="block w-full py-2.5 text-center font-medium text-purple-600 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors duration-200 focus:outline-none"
+                                @click="closeMobileMenu"
                             >
                                 Login
                             </router-link>
                             <router-link
                                 to="/register"
-                                class="block w-full py-2.5 text-center font-medium text-white bg-gradient-to-r from-primary-600 to-indigo-600 rounded-lg shadow hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                                @click="drawer = false"
+                                class="block w-full py-2.5 text-center font-medium text-white bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg shadow hover:shadow-md transition-all duration-200 focus:outline-none"
+                                @click="closeMobileMenu"
                             >
                                 Register
                             </router-link>
@@ -284,13 +282,13 @@
         </transition>
     </header>
 
-    <!-- Spacer to prevent content from hiding under fixed header -->
+    <!-- Spacer for fixed header -->
     <div class="h-16"></div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import adorn from "@/images/adorn.png";
+import adornVideo from "@/images/adorn.webm"
 const drawer = ref(false);
 const openDropdown = ref(null);
 const mobileOpenSubmenu = ref(null);
@@ -299,7 +297,11 @@ const toggleMobileSubmenu = (index) => {
     mobileOpenSubmenu.value = mobileOpenSubmenu.value === index ? null : index;
 };
 
-// Updated navigation items - Community is not a route
+const closeMobileMenu = () => {
+    drawer.value = false;
+    mobileOpenSubmenu.value = null;
+};
+
 const navItems = [
     { label: "Home", route: "/" },
     { label: "Tours", route: "/tours" },
@@ -322,38 +324,32 @@ const navItems = [
 ];
 </script>
 
-<style scoped>
-/* 3D spin animation for globe */
-@keyframes spin-3d {
-    0% {
-        transform: rotateY(0deg);
+<style>
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
     }
-    100% {
-        transform: rotateY(360deg);
+    to {
+        transform: rotate(360deg);
     }
 }
-
-.animate-spin-3d {
-    animation: spin-3d 8s linear infinite;
-    transform-style: preserve-3d;
+.animate-spin {
+    animation: spin 8s linear infinite;
 }
 
-/* Mobile drawer scrollbar styling */
-::-webkit-scrollbar {
-    width: 6px;
+/* Video quality improvements */
+video {
+    image-rendering: crisp-edges;
+    transform: translateZ(0); /* Force GPU acceleration */
+    backface-visibility: hidden;
+    object-fit: contain;
 }
 
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #c4b5fd;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #a78bfa;
+/* Mobile optimizations */
+@media (max-width: 767px) {
+    video {
+        height: 8vw;
+        min-height: 32px;
+    }
 }
 </style>

@@ -157,20 +157,12 @@
                     <div
                         class="order-1 md:order-2 overflow-hidden rounded-2xl shadow-xl"
                     >
-                        <img
-                            src="../images/cape-coast.webp"
-                            alt="Students exploring historical sites"
-                            class="w-full h-80 object-cover transform hover:scale-105 transition-transform duration-700"
-                        />
+                        
                     </div>
 
                     <!-- Block 2: Global Connections -->
                     <div class="order-2 overflow-hidden rounded-2xl shadow-xl">
-                        <img
-                            src="../images/learners-group.webp"
-                            alt="Students collaborating across cultures"
-                            class="w-full h-80 object-cover transform hover:scale-105 transition-transform duration-700"
-                        />
+                       
                     </div>
                     <div class="order-1 space-y-4">
                         <div class="flex items-center space-x-2 mb-2">
@@ -227,11 +219,7 @@
                     <div
                         class="order-1 md:order-2 overflow-hidden rounded-2xl shadow-xl"
                     >
-                        <img
-                            src="../images/kilimanjaro.webp"
-                            alt="Students on adventure learning expedition"
-                            class="w-full h-80 object-cover transform hover:scale-105 transition-transform duration-700"
-                        />
+                       
                     </div>
                 </div>
             </div>
@@ -452,24 +440,7 @@
             <div
                 class="absolute inset-0 bg-gradient-to-br from-purple-50 to-indigo-50"
             ></div>
-            <div class="absolute inset-0">
-                <svg
-                    class="w-full h-full"
-                    viewBox="0 0 1200 600"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M0,600 C400,500 800,700 1200,600 L1200,600 L0,600 Z"
-                        fill="#6b46c1"
-                        fill-opacity="0.05"
-                    />
-                    <path
-                        d="M0,600 C200,450 1000,650 1200,600 L1200,600 L0,600 Z"
-                        fill="#4f46e5"
-                        fill-opacity="0.05"
-                    />
-                </svg>
-            </div>
+           
             <div class="container mx-auto px-4 relative z-10 text-center">
                 <h2 class="text-4xl font-bold mb-6 animate-fade-in">
                     Begin Your Educational Journey

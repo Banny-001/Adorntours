@@ -11,6 +11,10 @@ import Contact from './pages/Contact.vue';
 import Team from './pages/Team.vue';
 import Dashboard from './pages/Dashboard.vue';
 import AdminBlogs from './pages/AdminBlogs.vue';
+import CustomTours from "./pages/CustomTours.vue";
+import Contacts from "./pages/Contacts.vue";
+import AllTours from "./pages/AllTours.vue";
+import CreateTour from "./pages/CreateTour.vue";
 
 
 const ifNotAuthenticated = (to, from) => {
@@ -44,6 +48,12 @@ const routes = [
         beforeEnter: ifNotAuthenticated
     },
     {
+        path: "/admin/tours/create",
+        component: CreateTour,
+        name: "CreateTour",
+        beforeEnter: ifAuthenticated
+    },
+    {
         path: "/about/team",
         component: Team,
         name: "Team",
@@ -59,6 +69,25 @@ const routes = [
         path: "/admin/blogs",
         component: AdminBlogs,
         name: "AdminBlogs",
+        beforeEnter: ifAuthenticated
+    },
+   
+    {
+        path: "/admin/tours",
+        component: AllTours,
+        name: "AllTours",
+        beforeEnter: ifAuthenticated
+    },
+    {
+        path: "/admin/contacts",
+        component: Contacts,
+        name: "AdminBlogs",
+        beforeEnter: ifAuthenticated
+    },
+    {
+        path: "/admin/custom-tours",
+        component: CustomTours,
+        name: "CustomTours",
         beforeEnter: ifAuthenticated
     },
     

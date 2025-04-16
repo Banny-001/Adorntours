@@ -8,7 +8,7 @@
           <div class="flex items-center gap-3">
             <img 
               :src=adorn
-              alt="ACIS Logo" 
+              alt="Adorn Logo" 
               class="w-10 h-10 object-contain animate-spin-slow"
             >
             <h2 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-cyan-400">
@@ -134,7 +134,7 @@
               <v-icon size="18" class="mt-0.5 mr-3 text-purple-400">mdi-email</v-icon>
               <div>
                 <p class="text-sm text-gray-400">Email us at</p>
-                <a href="mailto:info@adorn.com" class="text-white hover:text-purple-300 transition-colors">info@adorn.com</a>
+                <a href="mailto:info@adorndmc.com" class="text-white hover:text-purple-300 transition-colors">info@adorn.com</a>
               </div>
             </div>
             <div class="flex items-start">

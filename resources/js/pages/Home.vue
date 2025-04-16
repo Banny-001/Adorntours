@@ -10,9 +10,7 @@
                 class="absolute w-full h-full object-cover animate-spin-slow opacity-5 scale-150"
                 alt="Rotating Global Map"
             />
-            <div
-                class="absolute inset-0 bg-[url('/images/grid.svg')] opacity-10"
-            ></div>
+           
         </div>
 
         <!-- Main Content Container -->
@@ -75,7 +73,7 @@
                                 Why Travel with
                                 <span
                                     class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-700"
-                                    >ACIS</span
+                                    >Adorn Tours</span
                                 >
                             </h2>
                             <div

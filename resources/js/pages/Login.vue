@@ -1,16 +1,8 @@
 <template>
     <div
-        class="min-h-screen flex items-center justify-center bg-black font-[Poppins] relative overflow-hidden px-4"
+        class="min-h-screen flex items-center justify-center font-[Poppins] relative overflow-hidden px-4"
     >
-        <!-- 🌍 Spinning Globe Background -->
-        <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
-            <img
-                src="../images/globe-login.webp"
-                alt="Spinning Globe"
-                class="w-full h-full object-cover animate-spin-slow blur-lg scale-[1.3]"
-            />
-        </div>
-
+        
         <!-- 🔐 Login Card -->
         <v-card
             class="relative z-10 w-full max-w-md px-8 py-10 bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/20"
@@ -33,7 +25,7 @@
                     hide-details
                     density="comfortable"
                 />
-              
+
                 <v-text-field
                     v-model="form.password"
                     :type="showPassword ? 'text' : 'password'"
@@ -47,6 +39,7 @@
                     "
                     @click:append-inner="togglePassword"
                 />
+
                 <div class="pt-2">
                     <v-btn
                         color="primary"
@@ -71,6 +64,7 @@
         </v-card>
     </div>
 </template>
+
 <script setup>
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
@@ -84,46 +78,34 @@ const authStore = useAuthStore();
 const loader = useLoading();
 
 const form = reactive({
-  email: "",
-  password: "",
+    email: "",
+    password: "",
 });
 
 const showPassword = ref(false);
 const togglePassword = () => {
-  showPassword.value = !showPassword.value;
+    showPassword.value = !showPassword.value;
 };
 
 const handleLogin = async () => {
- 
-  loader.load();
-  try {
-    const { data } = await axios.post("api/login", form);
-    
-    authStore.token = true;
-    localStorage.setItem("auth", true);
+    loader.load();
+    try {
+        const { data } = await axios.post("api/login", form);
 
-    router.replace("/dashboard");
-  } catch (err) {
-    console.error(err);
-    useSnackbar(err?.response?.data?.message || "Login failed", "error");
-  } finally {
-    loader.quit();
-  }
+        authStore.token = true;
+        localStorage.setItem("auth", true);
+
+        router.replace("/dashboard");
+    } catch (err) {
+        console.error(err);
+        useSnackbar(err?.response?.data?.message || "Login failed", "error");
+    } finally {
+        loader.quit();
+    }
 };
 </script>
 
 <style scoped>
-@keyframes spin-slow {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-.animate-spin-slow {
-    animation: spin-slow 180s linear infinite;
-}
 
 .custom-input .v-field {
     background-color: rgba(255, 255, 255, 0.07);

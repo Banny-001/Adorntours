@@ -23,7 +23,10 @@
                 v-for="(metric, index) in metrics"
                 :key="index"
             >
-                <v-card elevation="2" class="pa-4 rounded-lg h-100">
+                <v-card
+                    elevation="2"
+                    class="pa-4 rounded-lg h-100 hover:animate-pulse-subtle"
+                >
                     <div class="d-flex justify-space-between align-center">
                         <div>
                             <div class="text-subtitle-2 text--secondary">
@@ -68,7 +71,6 @@
                         </v-btn>
                     </div>
                     <div style="height: 300px">
-                        <!-- Booking trends chart placeholder -->
                         <div
                             class="d-flex align-center justify-center grey lighten-4 rounded"
                             style="height: 100%"
@@ -98,7 +100,6 @@
                         </v-btn>
                     </div>
                     <div style="height: 300px">
-                        <!-- Categories chart placeholder -->
                         <div
                             class="d-flex align-center justify-center grey lighten-4 rounded"
                             style="height: 100%"
@@ -127,9 +128,9 @@
                         <span class="text-h6 font-weight-bold"
                             >Recent Custom Tours</span
                         >
-                        <v-btn text small color="primary" to="/custom-tours">
-                            View All
-                        </v-btn>
+                        <v-btn text small color="primary" to="/custom-tours"
+                            >View All</v-btn
+                        >
                     </v-card-title>
                     <v-data-table
                         :headers="customTourHeaders"
@@ -138,21 +139,9 @@
                         hide-default-footer
                         class="elevation-0"
                     >
-                        <template v-slot:item.budget="{ item }">
-                            {{ formatCurrency(item.budget) }}
-                        </template>
-                        <template v-slot:item.date="{ item }">
-                            {{ formatDate(item.date) }}
-                        </template>
-                        <template v-slot:item.status="{ item }">
-                            <v-chip
-                                small
-                                :color="getStatusColor(item.status)"
-                                dark
-                            >
-                                {{ item.status }}
-                            </v-chip>
-                        </template>
+                        <template v-slot:item.startDate="{ item }">{{
+                            formatDate(item.startDate)
+                        }}</template>
                     </v-data-table>
                 </v-card>
             </v-col>
@@ -165,9 +154,9 @@
                         <span class="text-h6 font-weight-bold"
                             >Latest Contacts</span
                         >
-                        <v-btn text small color="primary" to="/contacts">
-                            View All
-                        </v-btn>
+                        <v-btn text small color="primary" to="/contacts"
+                            >View All</v-btn
+                        >
                     </v-card-title>
                     <v-data-table
                         :headers="contactHeaders"
@@ -176,17 +165,16 @@
                         hide-default-footer
                         class="elevation-0"
                     >
-                        <template v-slot:item.date="{ item }">
-                            {{ formatDate(item.date) }}
-                        </template>
+                        <template v-slot:item.date="{ item }">{{
+                            formatDate(item.date)
+                        }}</template>
                         <template v-slot:item.status="{ item }">
                             <v-chip
                                 small
                                 :color="getContactStatusColor(item.status)"
                                 dark
+                                >{{ item.status }}</v-chip
                             >
-                                {{ item.status }}
-                            </v-chip>
                         </template>
                     </v-data-table>
                 </v-card>
@@ -196,226 +184,72 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { ref, onMounted } from "vue";
+import axios from "axios";
 
-const router = useRouter();
-
-// Key metrics data
-const metrics = ref([
-    {
-        title: "Total Tours",
-        value: "42",
-        trend: {
-            value: "+12%",
-            icon: "mdi-arrow-up",
-            color: "green lighten-5",
-            textColor: "green",
-        },
-        icon: {
-            name: "mdi-map-marker",
-            color: "purple",
-            bg: "purple lighten-5",
-        },
-    },
-    {
-        title: "Custom Requests",
-        value: "15",
-        trend: {
-            value: "+5",
-            icon: "mdi-arrow-up",
-            color: "orange lighten-5",
-            textColor: "orange",
-        },
-        icon: { name: "mdi-star-cog", color: "orange", bg: "orange lighten-5" },
-    },
-    {
-        title: "New Contacts",
-        value: "28",
-        trend: {
-            value: "+24%",
-            icon: "mdi-arrow-up",
-            color: "blue lighten-5",
-            textColor: "blue",
-        },
-        icon: {
-            name: "mdi-account-group",
-            color: "blue",
-            bg: "blue lighten-5",
-        },
-    },
-    {
-        title: "Revenue (Ksh)",
-        value: "1.2M",
-        trend: {
-            value: "+18%",
-            icon: "mdi-arrow-up",
-            color: "green lighten-5",
-            textColor: "green",
-        },
-        icon: {
-            name: "mdi-currency-usd",
-            color: "green",
-            bg: "green lighten-5",
-        },
-    },
-]);
-
-// Recent custom tours with Kenyan context
-const customTours = ref([
-    {
-        id: 1,
-        name: "James Mwangi",
-        tour: "Maasai Mara Safari",
-        budget: 450000,
-        date: "2023-06-15",
-        status: "Pending",
-    },
-    {
-        id: 2,
-        name: "Sarah Wambui",
-        tour: "School Trip to Coast",
-        budget: 320000,
-        date: "2023-06-14",
-        status: "Approved",
-    },
-    {
-        id: 3,
-        name: "David Omondi",
-        tour: "Family Vacation",
-        budget: 780000,
-        date: "2023-06-12",
-        status: "Pending",
-    },
-    {
-        id: 4,
-        name: "Amina Hassan",
-        tour: "Cultural Experience",
-        budget: 290000,
-        date: "2023-06-10",
-        status: "Rejected",
-    },
-    {
-        id: 5,
-        name: "Robert Kamau",
-        tour: "Corporate Retreat",
-        budget: 1200000,
-        date: "2023-06-08",
-        status: "Approved",
-    },
-]);
-
-// Recent contacts with Kenyan context
-const contacts = ref([
-    {
-        id: 1,
-        name: "Grace Wanjiku",
-        email: "grace@school.edu",
-        subject: "School Tour Inquiry",
-        date: "2023-06-15",
-        status: "New",
-    },
-    {
-        id: 2,
-        name: "Peter Maina",
-        email: "peter@company.co.ke",
-        subject: "Team Building Package",
-        date: "2023-06-14",
-        status: "Responded",
-    },
-    {
-        id: 3,
-        name: "Lucy Njeri",
-        email: "lucy@university.ac.ke",
-        subject: "Educational Tour",
-        date: "2023-06-13",
-        status: "New",
-    },
-    {
-        id: 4,
-        name: "Michael Otieno",
-        email: "michael@gmail.com",
-        subject: "Honeymoon Package",
-        date: "2023-06-12",
-        status: "Responded",
-    },
-    {
-        id: 5,
-        name: "Elizabeth Atieno",
-        email: "elizabeth@org.org",
-        subject: "Custom Itinerary",
-        date: "2023-06-10",
-        status: "New",
-    },
-]);
-
-// Table headers
-const customTourHeaders = ref([
-    { text: "Client", value: "name" },
-    { text: "Tour", value: "tour" },
-    { text: "Budget", value: "budget", align: "end" },
-    { text: "Date", value: "date" },
-    { text: "Status", value: "status" },
-]);
-
-const contactHeaders = ref([
+const contactHeaders = [
     { text: "Name", value: "name" },
     { text: "Email", value: "email" },
     { text: "Subject", value: "subject" },
-    { text: "Date", value: "date" },
-    { text: "Status", value: "status" },
-]);
+    { text: "Date", value: "created_at" },
+];
 
-// Formatting functions
+const customTourHeaders = [
+    { text: "Full Name", value: "fullName" },
+    { text: "Email", value: "email" },
+    { text: "Phone", value: "phone" },
+    { text: "Interests", value: "interests" },
+    { text: "Start Date", value: "startDate" },
+];
+
+const contacts = ref([]);
+const customTours = ref([]);
+
 const formatDate = (dateString) => {
     const options = { year: "numeric", month: "short", day: "numeric" };
     return new Date(dateString).toLocaleDateString("en-US", options);
 };
 
-const formatCurrency = (amount) => {
-    return new Intl.NumberFormat("en-KE", {
-        style: "currency",
-        currency: "KES",
-        maximumFractionDigits: 0,
-    }).format(amount);
+const fetchContacts = async () => {
+    try {
+        const { data } = await axios.get("/api/latest-contacts");
+        contacts.value = data.contacts || data;
+    } catch (error) {
+        console.error("Failed to fetch contacts", error);
+    }
 };
 
-// Status color helpers
-const getStatusColor = (status) => {
-    const colors = {
-        Pending: "orange",
-        Approved: "green",
-        Rejected: "red",
-    };
-    return colors[status] || "grey";
-};
-
-const getContactStatusColor = (status) => {
-    const colors = {
-        New: "blue",
-        Responded: "teal",
-    };
-    return colors[status] || "grey";
+const fetchCustomTours = async () => {
+    try {
+        const { data } = await axios.get("/api/latest-custom-tours");
+        customTours.value = data;
+    } catch (error) {
+        console.error("Failed to fetch custom tours", error);
+    }
 };
 
 const refreshData = () => {
-    // In a real app, this would fetch fresh data from the backend
-    console.log("Refreshing dashboard data...");
+    fetchContacts();
+    fetchCustomTours();
 };
+
+onMounted(() => {
+    refreshData();
+});
 </script>
 
 <style scoped>
 .dashboard-content {
-  padding: 20px;
-  margin-left: 0; /* Ensure no conflicting margins */
-  width: 100%;
+    padding: 24px;
+    width: 100%;
+    margin-left: 0 !important;
 }
 
 @media (min-width: 960px) {
-  .dashboard-content {
-    margin-left: 260px; /* Match navbar width */
-    width: calc(100% - 260px);
-  }
+    .dashboard-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+    }
 }
 
 .v-card {
@@ -433,5 +267,19 @@ const refreshData = () => {
 .v-data-table >>> .v-data-table-header {
     background-color: #f5f5f5;
     font-weight: 600;
+}
+
+@keyframes pulse-subtle {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+}
+
+.hover\:animate-pulse-subtle:hover {
+    animation: pulse-subtle 1.5s ease-in-out;
 }
 </style>

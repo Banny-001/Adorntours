@@ -6,6 +6,7 @@ import router from './router'
 import vuetify from './plugins/vuetify' 
 import axios from "./plugins/axios";
 import { createPinia } from "pinia";
+import '@mdi/font/css/materialdesignicons.css';
 
 const pinia = createPinia();
 

@@ -43,6 +43,8 @@
                         variant="solo"
                         outlined
                         required
+                        :error="!!errors.email"
+                        :error-messages="errors.email"
                     />
                 </div>
 
@@ -61,6 +63,8 @@
                 </div>
 
                 <v-btn
+                    :loading="isSubmitting"
+                    :disabled="isSubmitting"
                     type="submit"
                     color="primary"
                     class="rounded-full px-8 py-3 text-white font-medium shadow-md"
@@ -91,7 +95,7 @@
                         <a
                             href="mailto:info@adorn.com"
                             class="text-purple-600 hover:underline"
-                            >info@adorn.com</a
+                            >info@adorndmc.com</a
                         >
                     </p>
                 </div>
@@ -99,9 +103,10 @@
         </section>
     </div>
 </template>
-
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import axios from "axios";
+import { useSnackbar } from "@/composables/snackbar";
 
 const form = ref({
     name: "",
@@ -109,14 +114,58 @@ const form = ref({
     message: "",
 });
 
-const submitForm = () => {
+const errors = ref({
+    email: null,
+});
+
+const isSubmitting = ref(false);
+
+const isValidEmail = (email) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+};
+
+
+watch(
+  () => form.value.email,
+  (newEmail) => {
+    if (!newEmail) {
+      errors.value.email = "Email is required.";
+    } else if (!isValidEmail(newEmail)) {
+      errors.value.email = "Please enter a valid email address.";
+    } else {
+      errors.value.email = null;
+    }
+  }
+);
+
+
+const submitForm = async () => {
     if (!form.value.name || !form.value.email || !form.value.message) {
-        alert("Please fill all required fields.");
+        useSnackbar("Please fill all required fields.", "error");
         return;
     }
 
-    // TODO: send to backend
-    alert("Message sent! We'll get back to you soon.");
-    form.value = { name: "", email: "", message: "" };
+    if (errors.value.email) {
+        useSnackbar("Please fix the email field.", "error");
+        return;
+    }
+
+    isSubmitting.value = true;
+    try {
+        await axios.post("/api/contact", form.value);
+        useSnackbar("Message sent successfully!", "success");
+        form.value = {
+            name: "",
+            email: "",
+            message: "",
+        };
+    } catch (error) {
+        useSnackbar(
+            error?.response?.data?.message || "Something went wrong.",
+            "error"
+        );
+    } finally {
+        isSubmitting.value = false;
+    }
 };
 </script>

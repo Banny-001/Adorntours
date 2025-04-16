@@ -1,5 +1,6 @@
-import "vuetify/styles"
-import { createVuetify } from "vuetify"
+import "vuetify/styles";
+import { createVuetify } from "vuetify";
+import { aliases, mdi } from "vuetify/iconsets/mdi";
 
 const lightTheme = {
   dark: false,
@@ -15,7 +16,7 @@ const lightTheme = {
     success: "#4CAF50",
     warning: "#FB8C00",
   },
-}
+};
 
 export default createVuetify({
   theme: {
@@ -24,4 +25,11 @@ export default createVuetify({
       lightTheme,
     },
   },
-})
+  icons: {
+    defaultSet: "mdi",
+    aliases,
+    sets: {
+      mdi,
+    },
+  },
+});
