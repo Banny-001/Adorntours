@@ -1,322 +1,225 @@
 <template>
-    <div class="p-4 md:p-6 max-w-5xl mx-auto">
-        <h1 class="text-2xl md:text-3xl font-bold text-[#201444] mb-6">
-            Create New Blog Post
-        </h1>
+    <v-card>
+        <div class="max-w-6xl mx-auto px-4 md:px-6 pb-28 pt-6 font-[Poppins]">
+            <h1 class="text-3xl font-bold text-[#201444] mb-8 text-center">
+                Create a New Blog
+            </h1>
 
-        <form @submit.prevent="submitForm" class="space-y-6">
-            <!-- Basic Information Section -->
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h2 class="text-xl font-semibold mb-4">Basic Information</h2>
+        <v-form @submit.prevent="submitBlog">
+            <v-container fluid>
+                <v-row dense>
+                    <!-- Title -->
+                    <v-col cols="12" sm="6">
+                        <div>Title</div>
+                        <v-text-field v-model="form.title" 
+                        outlined dense
+                         density="compact"
+                         />
+                    </v-col>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="md:col-span-2">
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-1"
-                            >Title*</label
-                        >
-                        <input
-                            v-model="form.title"
-                            type="text"
-                            required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    <!-- Slug -->
+                    <v-col cols="12" sm="6">
+                        <div>Slug</div>
+                        <v-text-field v-model="form.slug" outlined dense  density="compact" />
+                    </v-col>
+
+                    <!-- Category -->
+                    <v-col cols="12" sm="6">
+                        <div>Category</div>
+                        <v-text-field v-model="form.category" outlined dense  density="compact" />
+                    </v-col>
+
+                    <!-- Tags -->
+                    <v-col cols="12" sm="6">
+                        <div>Tags (comma-separated)</div>
+                        <v-text-field v-model="form.tags" outlined dense  density="compact" />
+                    </v-col>
+
+                    <!-- Author Name -->
+                    <v-col cols="12" sm="6">
+                        <div>Author Name</div>
+                        <v-text-field
+                            v-model="form.author_name"
+                            outlined
+                            dense
+                             density="compact"
                         />
-                    </div>
+                    </v-col>
 
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-1"
-                            >Category*</label
-                        >
-                        <input
-                            v-model="form.category"
-                            type="text"
-                            required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    <!-- Author Avatar -->
+                    <v-col cols="12" sm="6">
+                        <div>Author Avatar URL</div>
+                        <v-text-field
+                            v-model="form.author_avatar_url"
+                            outlined
+                            dense
+                             density="compact"
                         />
-                    </div>
+                    </v-col>
 
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-1"
-                            >Published Date*</label
-                        >
-                        <input
-                            v-model="form.published_date"
-                            type="date"
-                            required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    <!-- Is Featured -->
+                    <v-col cols="12" sm="6">
+                        <v-switch
+                            v-model="form.is_featured"
+                            label="Mark as Featured"
+                            inset
+                            color="purple"
+                            :true-value="true"
+                            :false-value="false"
                         />
-                    </div>
+                    </v-col>
 
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-1"
-                            >Featured Post</label
-                        >
-                        <label class="inline-flex items-center mt-2">
-                            <input
-                                v-model="form.featured"
-                                type="checkbox"
-                                class="form-checkbox h-5 w-5 text-purple-600"
-                            />
-                            <span class="ml-2 text-gray-700"
-                                >Mark as featured</span
-                            >
-                        </label>
-                    </div>
-
-                    <div class="md:col-span-2">
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-1"
-                            >Tags (comma separated)</label
-                        >
-                        <input
-                            v-model="tagsInput"
-                            type="text"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    <!-- Published At -->
+                    <v-col cols="12" sm="6">
+                        <div>Publish Date</div>
+                        <v-text-field
+                            v-model="form.published_at"
+                            type="datetime-local"
+                            outlined
+                            dense
+                             density="compact"
                         />
-                    </div>
-                </div>
-            </div>
+                    </v-col>
 
-            <!-- Content Section -->
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h2 class="text-xl font-semibold mb-4">Content</h2>
-
-                <div class="space-y-6">
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-1"
-                            >Content*</label
-                        >
-                        <textarea
-                            v-model="form.content"
-                            rows="10"
-                            required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                        ></textarea>
-                        <p class="mt-1 text-sm text-gray-500">
-                            Supports HTML formatting
-                        </p>
-                    </div>
-
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-1"
-                            >Featured Image</label
-                        >
-                        <input
-                            type="file"
-                            @change="handleImageUpload"
-                            accept="image/*"
-                            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
-                        />
-                        <p class="mt-1 text-sm text-gray-500">
-                            JPEG, PNG (Max 2MB)
-                        </p>
-                        <img
-                            v-if="imagePreview"
-                            :src="imagePreview"
-                            class="mt-2 h-48 object-cover rounded"
-                        />
-                    </div>
-                </div>
-            </div>
-
-            <!-- Author Section -->
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h2 class="text-xl font-semibold mb-4">Author Information</h2>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-1"
-                            >Author Name*</label
-                        >
-                        <input
-                            v-model="form.author"
-                            type="text"
-                            required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                        />
-                    </div>
-
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-1"
-                            >Author Avatar</label
-                        >
-                        <input
-                            type="file"
-                            @change="handleAvatarUpload"
-                            accept="image/*"
-                            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
-                        />
-                        <p class="mt-1 text-sm text-gray-500">
-                            JPEG, PNG (Max 1MB)
-                        </p>
-                        <img
-                            v-if="avatarPreview"
-                            :src="avatarPreview"
-                            class="mt-2 h-16 w-16 object-cover rounded-full"
-                        />
-                    </div>
-                </div>
-            </div>
-
-            <!-- SEO Section -->
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h2 class="text-xl font-semibold mb-4">SEO Settings</h2>
-
-                <div class="space-y-6">
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-1"
-                            >Meta Title</label
-                        >
-                        <input
+                    <!-- Meta Title -->
+                    <v-col cols="12">
+                        <div>Meta Title</div>
+                        <v-text-field
                             v-model="form.meta_title"
-                            type="text"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            outlined
+                            dense
+                             density="compact"
                         />
-                    </div>
+                    </v-col>
 
-                    <div>
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-1"
-                            >Meta Description</label
-                        >
-                        <textarea
+                    <!-- Meta Description -->
+                    <v-col cols="12">
+                        <div>Meta Description</div>
+                        <v-textarea
                             v-model="form.meta_description"
-                            rows="3"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                        ></textarea>
-                    </div>
-                </div>
-            </div>
+                            outlined
+                            rows="2"
+                             density="compact"
+                        />
+                    </v-col>
 
-            <!-- Form Actions -->
-            <div class="flex justify-end space-x-4">
-                <button
-                    type="button"
-                    @click="$router.back()"
-                    class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    <!-- SEO Keywords -->
+                    <v-col cols="12">
+                        <div>SEO Keywords (comma-separated)</div>
+                        <v-text-field
+                            v-model="form.seo_keywords"
+                            outlined
+                            dense
+                             density="compact"
+                        />
+                    </v-col>
+
+                    <!-- Content -->
+                    <v-col cols="12">
+                        <div>Content</div>
+                        <v-textarea v-model="form.content" outlined rows="5"  density="compact" />
+                    </v-col>
+
+                    <!-- Image Upload -->
+                    <v-col cols="12">
+                        <div class="mb-1">Blog Image</div>
+                        <label
+                            for="image-upload"
+                            class="cursor-pointer text-purple-700"
+                        >
+                            <v-icon>mdi-file-image</v-icon> Upload Image
+                        </label>
+                        <input
+                            id="image-upload"
+                            type="file"
+                            accept="image/*"
+                            class="hidden"
+                            @change="handleImageChange"
+                        />
+                        <div v-if="selectedFileName" class="mt-1 text-sm">
+                            {{ selectedFileName }}
+                        </div>
+                    </v-col>
+
+                    <!-- Image Preview -->
+                    <v-col cols="12" v-if="imagePreview">
+                        <v-img
+                            :src="imagePreview"
+                            width="300"
+                            height="200"
+                              class="rounded-lg mt-2 border border-gray-300 object-cover"
+                            cover
+                        ></v-img>
+                    </v-col>
+                </v-row>
+            </v-container>
+
+            <div class="flex justify-end mt-6">
+                <v-btn color="primary" type="submit" :loading="loading"
+                    >Submit Blog</v-btn
                 >
-                    Cancel
-                </button>
-                <button
-                    type="submit"
-                    :disabled="loading"
-                    class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                    <span v-if="loading">Publishing...</span>
-                    <span v-else>Publish Post</span>
-                </button>
             </div>
-        </form>
-    </div>
+        </v-form>
+        </div>
+    </v-card>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import axios from "axios";
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router'; 
 
-const router = useRouter();
+const router = useRouter(); 
 const loading = ref(false);
 const imagePreview = ref(null);
-const avatarPreview = ref(null);
-
-const tagsInput = ref("");
+const selectedFileName = ref("");
 
 const form = ref({
     title: "",
+    slug: "",
     content: "",
-    image: null,
-    category: "Education",
-    tags: [],
-    author: "",
-    author_avatar: null,
-    featured: false,
-    published_date: new Date().toISOString().split("T")[0],
+    image_url: "",
+    category: "",
+    tags: "",
+    author_name: "",
+    author_avatar_url: "",
+    is_featured: false,
+    published_at: "",
     meta_title: "",
     meta_description: "",
+    seo_keywords: "",
 });
 
-const handleImageUpload = (event) => {
-    const file = event.target.files[0];
+function handleImageChange(event) {
+    const file = event.target?.files?.[0];
     if (file) {
-        form.value.image = file;
-
-        // Create preview
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            imagePreview.value = e.target.result;
-        };
-        reader.readAsDataURL(file);
+        imagePreview.value = URL.createObjectURL(file);
+        selectedFileName.value = file.name;
+        form.value.image_url = file;
     }
-};
+}
 
-const handleAvatarUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-        form.value.author_avatar = file;
-
-        // Create preview
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            avatarPreview.value = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-};
-
-const submitForm = async () => {
+async function submitBlog() {
     loading.value = true;
-
     try {
-        const formData = new FormData();
-
-        // Convert tags input to array
-        const tagsArray = tagsInput.value
-            .split(",")
-            .map((tag) => tag.trim())
-            .filter((tag) => tag);
-
-        // Append all form fields to FormData
-        Object.keys(form.value).forEach((key) => {
-            if (key === "tags") {
-                formData.append(key, JSON.stringify(tagsArray));
-            } else if (key !== "image" && key !== "author_avatar") {
-                formData.append(key, form.value[key]);
+        const data = new FormData();
+        for (const [key, value] of Object.entries(form.value)) {
+            if (key === "tags" && typeof value === "string") {
+                data.append(key, JSON.stringify(value.split(",")));
+            } else {
+                data.append(key, value);
             }
-        });
-
-        // Append files if they exist
-        if (form.value.image instanceof File) {
-            formData.append("image", form.value.image);
-        }
-        if (form.value.author_avatar instanceof File) {
-            formData.append("author_avatar", form.value.author_avatar);
         }
 
-        const response = await axios.post("/api/blogs", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        });
+        const res = await axios.post("/api/blogs", data);
+        alert("Blog created successfully!");
 
-        router.push({ name: "blogs.index" });
-    } catch (error) {
-        console.error("Error creating blog post:", error);
-        alert("Error creating blog post. Please try again.");
+        router.push("/admin/blogs");
+        // Optionally redirect or reset form
+    } catch (e) {
+        console.error("Error submitting blog:", e);
     } finally {
         loading.value = false;
     }
-};
+}
 </script>
-
-<style scoped>
-/* Add any custom styles here */
-</style>

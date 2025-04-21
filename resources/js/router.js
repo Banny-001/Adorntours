@@ -11,10 +11,15 @@ import Contact from './pages/Contact.vue';
 import Team from './pages/Team.vue';
 import Dashboard from './pages/Dashboard.vue';
 import AdminBlogs from './pages/AdminBlogs.vue';
+import CreateBlog from './pages/CreateBlog.vue';
+// import AdminBlogs from "@/views/admin/AdminBlogs.vue";
+
 import CustomTours from "./pages/CustomTours.vue";
 import Contacts from "./pages/Contacts.vue";
 import AllTours from "./pages/AllTours.vue";
 import CreateTour from "./pages/CreateTour.vue";
+import EditTour from './pages/EditTour.vue';
+import EditBlog from './pages/EditBlogs.vue';
 
 
 const ifNotAuthenticated = (to, from) => {
@@ -54,6 +59,12 @@ const routes = [
         beforeEnter: ifAuthenticated
     },
     {
+        path: "/tours/:id/edit",
+        component: EditTour,
+        name: "EditTour",
+        beforeEnter: ifAuthenticated
+    },
+    {
         path: "/about/team",
         component: Team,
         name: "Team",
@@ -65,10 +76,23 @@ const routes = [
         name: "Dashboard",
         beforeEnter: ifAuthenticated
     },
+    
     {
         path: "/admin/blogs",
         component: AdminBlogs,
         name: "AdminBlogs",
+        beforeEnter: ifAuthenticated
+    },
+    {
+        path:"/admin/blogs/create",
+        component:CreateBlog,
+        name:'CreateBlog',
+        beforeEnter: ifAuthenticated
+    },
+    {
+        path: "/blogs/:id/edit",
+        component: EditBlog,
+        name: "EditBlog",
         beforeEnter: ifAuthenticated
     },
    
@@ -81,7 +105,7 @@ const routes = [
     {
         path: "/admin/contacts",
         component: Contacts,
-        name: "AdminBlogs",
+        name: "Contacts",
         beforeEnter: ifAuthenticated
     },
     {

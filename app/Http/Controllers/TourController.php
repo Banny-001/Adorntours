@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tour;
 use Illuminate\Http\Request;
 use App\Models\Country;
+
 class TourController extends Controller
 {
     /**
@@ -81,7 +82,7 @@ class TourController extends Controller
             'country' => Country::find($request->country_id)->name,
             'region' => $request->region,
             'destination' => $request->destination,
-            'image' => asset('storage/' . $imagePath), // ✅ PUBLICLY ACCESSIBLE URL
+            'image' => asset('storage/' . $imagePath),
             'short_description' => $request->short_description,
             'full_description' => $request->full_description,
             'duration' => $request->duration,
@@ -105,15 +106,18 @@ class TourController extends Controller
      */
     public function show(Tour $tour)
     {
-        //
+        return response()->json($tour);
     }
+
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Tour $tour)
     {
-        //
+        $tour->load('country');
+
+        return response()->json($tour);
     }
 
     /**
@@ -121,14 +125,69 @@ class TourController extends Controller
      */
     public function update(Request $request, Tour $tour)
     {
-        //
+        // Validate the request
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255',
+            'region' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
+            'short_description' => 'nullable|string',
+            'full_description' => 'nullable|string',
+            'details' => 'nullable|string',
+            'duration' => 'nullable|string',
+            'price' => 'required|numeric',
+            'is_featured' => 'boolean',
+            'min_group_size' => 'nullable|integer',
+            'max_group_size' => 'nullable|integer',
+            'highlights' => 'nullable|string',
+            'itinerary' => 'nullable|string',
+            'destination' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        // Handle image upload if provided
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('tours/images', 'public');
+            $validatedData['image'] = $imagePath;
+        }
+
+        if ($request->hasFile('cover_image')) {
+            $coverImagePath = $request->file('cover_image')->store('tours/cover_images', 'public');
+            $validatedData['cover_image'] = $coverImagePath;
+        }
+
+        // Update the tour
+        $tour->update($validatedData);
+
+        return response()->json([
+            'message' => 'Tour updated successfully.',
+            'tour' => $tour
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tour $tour)
+    public function archive($id)
     {
-        //
+        $tour = Tour::findOrFail($id);
+        $tour->delete(); // This will just set deleted_at
+
+        return response()->json(['message' => 'Tour archived successfully.']);
+    }
+    public function restore($id)
+    {
+        $tour = Tour::onlyTrashed()->findOrFail($id);
+        $tour->restore();
+
+        return response()->json(['message' => 'Tour restored successfully.']);
+    }
+    public function destroy($id)
+    {
+        $tour = Tour::onlyTrashed()->findOrFail($id);
+        $tour->forceDelete();
+
+        return response()->json(['message' => 'Tour permanently deleted.']);
     }
 }

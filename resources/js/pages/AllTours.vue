@@ -1,83 +1,123 @@
 <template>
-    <div class="p-4 md:p-6">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl md:text-3xl font-bold text-[#201444]">
-                All Tours
-            </h1>
-           
-        </div>
+    <div class="p-4 md:p-6 bg-[#f9f9fb] min-h-screen">
+        <v-card class="rounded-2xl mb-6 bg-[#f7f4fb]" flat elevation="2">
+            <v-card-text
+                class="d-flex justify-space-between align-center py-6 px-4"
+            >
+                <h1 class="text-3xl font-bold text-[#201444] tracking-wide">
+                    🌍 All Tours
+                </h1>
+                <v-btn
+                    color="primary"
+                    class="text-white"
+                    to="/admin/tours/create"
+                  
+                >
+                    Create New Tour
+                </v-btn>
+            </v-card-text>
+        </v-card>
 
-        <v-data-table
-            show-headers
-            light
-            :headers="headers"
-            :items="tours"
-            :items-length="totalItems"
-            :server-items-length="totalItems"
-            :items-per-page="itemsPerPage"
-            :page.sync="page"
-            :items-per-page-options="[10, 20, 50, 100]"
-            :footer-props="{
-                showFirstLastPage: true,
-                firstIcon: 'mdi-page-first',
-                lastIcon: 'mdi-page-last',
-            }"
-            :loading="loading"
-            mobile-breakpoint="960"
-            density="comfortable"
-            class="elevation-1"
-            @update:items-per-page="updateItemsPerPage"
-        >
-            <template v-slot:item.image="{ item }">
-                <img
-                    :src="item.image || '/images/default-tour.jpg'"
-                    class="w-16 h-10 object-cover rounded"
-                    :alt="item.title"
-                />
-            </template>
+        <v-card flat elevation="2" class="rounded-2xl overflow-hidden">
+            <v-data-table
+                :headers="headers"
+                :items="tours"
+                :items-length="totalItems"
+                :server-items-length="totalItems"
+                :items-per-page="itemsPerPage"
+                :page.sync="page"
+                :items-per-page-options="[10, 20, 50, 100]"
+                :loading="loading"
+                class="elevation-1"
+                density="comfortable"
+                @update:items-per-page="updateItemsPerPage"
+            >
+                <!-- Customized Headers -->
+                <template v-slot:column.image="{ column }">
+                    <span class="font-semibold text-[#6a4c93]">{{
+                        column.title
+                    }}</span>
+                </template>
+                <template v-slot:column.title="{ column }">
+                    <span class="font-semibold text-[#6a4c93]">{{
+                        column.title
+                    }}</span>
+                </template>
+                <template v-slot:column.country="{ column }">
+                    <span class="font-semibold text-[#6a4c93]">{{
+                        column.title
+                    }}</span>
+                </template>
+                <template v-slot:column.region="{ column }">
+                    <span class="font-semibold text-[#6a4c93]">{{
+                        column.title
+                    }}</span>
+                </template>
+                <template v-slot:column.duration="{ column }">
+                    <span class="font-semibold text-[#6a4c93]">{{
+                        column.title
+                    }}</span>
+                </template>
+                <template v-slot:column.price="{ column }">
+                    <span class="font-semibold text-[#6a4c93]">{{
+                        column.title
+                    }}</span>
+                </template>
+                <template v-slot:column.is_featured="{ column }">
+                    <span class="font-semibold text-[#6a4c93]">{{
+                        column.title
+                    }}</span>
+                </template>
+                <template v-slot:column.actions="{ column }">
+                    <span class="font-semibold text-[#6a4c93]">{{
+                        column.title
+                    }}</span>
+                </template>
 
-            <template v-slot:item.is_featured="{ item }">
-                <v-icon :color="item.is_featured ? 'green' : 'grey'">
-                    {{ item.is_featured ? "mdi-star" : "mdi-star-outline" }}
-                </v-icon>
-            </template>
+                <!-- Image column -->
+                <template v-slot:item.image="{ item }">
+                    <img
+                        :src="item.image || '/images/default-tour.jpg'"
+                        class="w-20 h-14 object-cover rounded shadow-sm"
+                        :alt="item.title"
+                    />
+                </template>
 
-            <template v-slot:item.price="{ item }">
-                {{ item.price.toLocaleString() }}
-            </template>
+                <!-- Featured icon -->
+                <template v-slot:item.is_featured="{ item }">
+                    <v-icon :color="item.is_featured ? 'green' : 'grey'">
+                        {{ item.is_featured ? "mdi-star" : "mdi-star-outline" }}
+                    </v-icon>
+                </template>
 
-            <template v-slot:item.actions="{ item }">
-                <div class="flex space-x-2">
-                    <router-link
-                        :to="`/tours/${item.id}/edit`"
-                        class="text-blue-500 hover:text-blue-700"
+                <!-- Price -->
+                <template v-slot:item.price="{ item }">
+                    <span class="text-[#201444] font-medium"
+                        >Ksh {{ item.price.toLocaleString() }}</span
                     >
-                        <v-icon small>mdi-pencil</v-icon>
-                    </router-link>
-                    <button
-                        @click="deleteTour(item.id)"
-                        class="text-red-500 hover:text-red-700"
-                    >
-                        <v-icon small>mdi-delete</v-icon>
-                    </button>
-                </div>
-            </template>
+                </template>
 
-            <!-- Custom header template to ensure visibility -->
-            <template v-slot:header="{ props: { headers } }">
-                <thead>
-                    <tr>
-                        <th
-                            v-for="header in headers"
-                            :key="header.value"
-                            class="text-left"
+                <!-- Actions -->
+                <template v-slot:item.actions="{ item }">
+                    <div class="flex space-x-2">
+                        <router-link
+                            :to="`/tours/${item.id}/edit`"
+                            class="text-blue-600 hover:text-blue-800"
                         >
-                            {{ header.text }}
-                        </th>
-                    </tr>
-                </thead>
-            </template>
-        </v-data-table>
+                            <v-icon small>mdi-pencil</v-icon>
+                        </router-link>
+                        <button
+                            @click="handleArchive(item.id)"
+                            class="text-red-600 hover:text-red-800"
+                        >
+                            <v-icon small class="text-red-600"
+                                >mdi-archive</v-icon
+                            >
+                        </button>
+                    </div>
+                </template>
+            </v-data-table>
+        </v-card>
     </div>
 </template>
 
@@ -86,14 +126,14 @@ import { ref, onMounted, watch } from "vue";
 import axios from "axios";
 
 const headers = ref([
-    { text: "Image", key: "image", sortable: false },
-    { text: "Title", key: "title", sortable: true },
-    { text: "Country", key: "country", sortable: true },
-    { text: "Region", key: "region", sortable: true },
-    { text: "Duration", key: "duration", sortable: true },
-    { text: "Price", key: "price", sortable: true },
-    { text: "Featured", key: "is_featured", sortable: true },
-    { text: "Actions", key: "actions", sortable: false },
+    { title: "Image", value: "image", sortable: false },
+    { title: "Title", value: "title", sortable: true },
+    { title: "Country", value: "country", sortable: true },
+    { title: "Region", value: "region", sortable: true },
+    { title: "Duration", value: "duration", sortable: true },
+    { title: "Price", value: "price", sortable: true },
+    { title: "Featured", value: "is_featured", sortable: true },
+    { title: "Actions", value: "actions", sortable: false },
 ]);
 
 const tours = ref([]);
@@ -125,14 +165,19 @@ const updateItemsPerPage = (value) => {
     fetchTours();
 };
 
-const deleteTour = async (id) => {
-    if (!confirm("Are you sure you want to delete this tour?")) return;
+const handleArchive = async (id) => {
+    const confirmed = window.confirm(
+        "Are you sure you want to archive this tour?"
+    );
+    if (!confirmed) return;
 
     try {
-        await axios.delete(`/api/tours/${id}`);
-        fetchTours();
+        await axios.put(`/api/tours/${id}/archive`);
+        alert("Tour archived successfully!");
+        fetchTours(); // re-fetch the list
     } catch (error) {
-        console.error("Failed to delete tour:", error);
+        console.error("Error archiving tour:", error);
+        alert("Something went wrong while archiving.");
     }
 };
 
@@ -144,34 +189,28 @@ watch([page, itemsPerPage], () => {
 </script>
 
 <style scoped>
-/* Force table headers to be visible */
-::v-deep .v-data-table-header {
-    visibility: visible !important;
-    opacity: 1 !important;
-    display: table-header-group !important;
+.v-data-table {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    font-family: "Inter", sans-serif;
 }
 
 ::v-deep .v-data-table-header th {
-    background-color: #f5f5f5 !important;
+    background-color: #f6f1f1 !important;
     color: #201444 !important;
     font-weight: 600 !important;
-    padding: 12px 16px !important;
+    font-size: 0.95rem;
+    padding: 14px 18px !important;
+    border-bottom: 1px solid #ddd;
 }
 
-.v-data-table {
-    background-color: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-/* Mobile responsiveness */
 @media (max-width: 960px) {
     .v-data-table {
         font-size: 0.875rem;
     }
 
     ::v-deep .v-data-table-header th {
-        padding: 8px 12px !important;
+        padding: 10px 12px !important;
     }
 }
 </style>

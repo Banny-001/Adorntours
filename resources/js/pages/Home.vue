@@ -73,7 +73,7 @@
                                 Why Travel with
                                 <span
                                     class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-700"
-                                    >Adorn Tours</span
+                                    >Adorn DMC</span
                                 >
                             </h2>
                             <div

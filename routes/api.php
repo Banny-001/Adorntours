@@ -17,7 +17,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     
 });
 Route::resource('tours', TourController::class);
+Route::put('/tours/{id}/archive', [TourController::class, 'archive']);
+Route::get('/blogs/{id}', [BlogController::class, 'edit']);
 Route::resource('blogs', BlogController::class);
+Route::put('/blogs/{id}/archive',[BlogController::class,'archive']);
 Route::resource('contact', ContactController::class);
 Route::resource('custom-tours', CustomTourController::class);
 

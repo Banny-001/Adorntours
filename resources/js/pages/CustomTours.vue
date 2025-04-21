@@ -1,19 +1,17 @@
 <template>
-    <div class="p-4 md:p-6">
-        <h1 class="text-2xl md:text-3xl font-bold text-[#201444] mb-6">
-            All Custom Tour Requests
-        </h1>
-
-        <div v-if="loading" class="text-center my-4">Loading...</div>
-
-        <!-- Debug info (remove in production) -->
-        <div
-            v-if="customTours.length === 0 && !loading"
-            class="text-center my-4 text-red-500"
-        >
-            No data available. Check console for details.
-        </div>
-
+    <div class="p-4 md:p-6 bg-[#f9f9fb] min-h-screen">
+        <!-- Header Card -->
+        <v-card class="rounded-2xl mb-6 bg-[#f7f4fb]" flat elevation="2">
+            <v-card-text
+                class="d-flex justify-space-between align-center py-6 px-4"
+            >
+                <h1 class="text-3xl font-bold text-[#201444] tracking-wide">
+                    Custom Tours
+                </h1>
+            </v-card-text>
+        </v-card>
+        <v-card flat elevation="2" class="rounded-2xl overflow-hidden">
+      
         <v-data-table
             :headers="headers"
             :items="customTours"
@@ -28,6 +26,7 @@
                 {{ formatDate(item.start_date) }}
             </template>
         </v-data-table>
+        </v-card>
     </div>
 </template>
 

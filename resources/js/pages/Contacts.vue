@@ -1,11 +1,18 @@
 <template>
-    <div class="p-4 md:p-6">
-        <h1 class="text-2xl md:text-3xl font-bold text-blue-800 mb-6">
-            Contact Messages
-        </h1>
+    <div class="p-4 md:p-6 bg-[#f9f9fb] min-h-screen">
+        <!-- Header Card -->
+        <v-card class="rounded-2xl mb-6 bg-[#f7f4fb]" flat elevation="2">
+            <v-card-text
+                class="d-flex justify-space-between align-center py-6 px-4"
+            >
+                <h1 class="text-3xl font-bold text-[#201444] tracking-wide">
+                    Contact Messages
+                </h1>
+            </v-card-text>
+       
 
         <div class="mb-4 flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-6">
                 <v-text-field
                     v-model="search"
                     label="Search contacts"
@@ -18,6 +25,7 @@
                 ></v-text-field>
                 <v-btn
                     color="primary"
+                    class="flex-end"
                     prepend-icon="mdi-refresh"
                     @click="fetchContacts"
                     :loading="loading"
@@ -26,6 +34,7 @@
                 </v-btn>
             </div>
         </div>
+    </v-card>
 
         <v-data-table
             :headers="headers"

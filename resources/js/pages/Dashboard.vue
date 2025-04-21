@@ -1,20 +1,16 @@
 <template>
-    <div class="dashboard-content">
-        <!-- Dashboard Header -->
-        <div class="d-flex justify-space-between align-center mb-6">
-            <div>
-                <h1 class="text-h4 font-weight-bold">Dashboard Overview</h1>
-                <p class="text-subtitle-1 text--secondary">
-                    Welcome back, Admin
-                </p>
-            </div>
-            <v-btn color="primary" @click="refreshData">
-                <v-icon left>mdi-refresh</v-icon>
-                Refresh
-            </v-btn>
-        </div>
-
-        <!-- Key Metrics -->
+    <div class="p-4 md:p-6 bg-[#f9f9fb] min-h-screen">
+        <!-- Page Header -->
+        <v-card class="rounded-2xl mb-6 bg-[#f7f4fb]" flat elevation="2">
+            <v-card-text class="d-flex justify-space-between align-center py-6 px-4">
+                <h1 class="text-3xl font-bold text-[#201444] tracking-wide">📊 Dashboard</h1>
+                <v-btn color="primary" @click="refreshData">
+                    <v-icon left>mdi-refresh</v-icon>
+                    Refresh
+                </v-btn>
+            </v-card-text>
+            
+        </v-card>
         <v-row class="mb-6">
             <v-col
                 cols="12"

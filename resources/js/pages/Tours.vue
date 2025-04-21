@@ -179,7 +179,8 @@
 
                         <button
                             @click="resetFilters"
-                            class="self-end px-5 py-3 text-sm text-purple-700 border border-purple-300 rounded-lg hover:bg-purple-100 transition-colors duration-300 flex items-center"
+                            class="self-end py-4 px-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white border border-purple-300 rounded-full hover:bg-purple-100 transition-all duration-300 flex items-center"
+
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -315,7 +316,9 @@
                     </p>
                     <button
                         @click="resetFilters"
-                        class="mt-6 px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                        class="mt-6 px-6 py-2 bg-purple-600 text-purple border border-purple-300 rounded-lg hover:bg-purple-700 transition-colors"
+                       
+
                     >
                         Clear All Filters
                     </button>
