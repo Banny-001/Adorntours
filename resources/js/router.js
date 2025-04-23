@@ -20,6 +20,7 @@ import AllTours from "./pages/AllTours.vue";
 import CreateTour from "./pages/CreateTour.vue";
 import EditTour from './pages/EditTour.vue';
 import EditBlog from './pages/EditBlogs.vue';
+import Register from './pages/register.vue';
 
 
 const ifNotAuthenticated = (to, from) => {
@@ -131,6 +132,12 @@ const routes = [
         path: "/login",
         component: Login,
         name: "Login",
+        beforeEnter: ifNotAuthenticated
+    },
+    {
+        path: "/register",
+        component: Register,
+        name: "Register",
         beforeEnter: ifNotAuthenticated
     },
     {

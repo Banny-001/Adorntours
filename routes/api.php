@@ -26,6 +26,7 @@ Route::resource('custom-tours', CustomTourController::class);
 
 
 Route::post('login', [AuthenticationController::class, 'login']);
+Route::post('register', [AuthenticationController::class, 'register']);
 Route::post('logout', [AuthenticationController::class, 'logout']);
 Route::post('custom-tours', [CustomTourController::class, 'store']);
 Route::get('latest-contacts', [ContactController::class, 'latest']);

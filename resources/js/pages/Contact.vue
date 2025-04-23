@@ -2,23 +2,44 @@
     <div
         class="pt-[120px] px-6 md:px-16 bg-white text-[#201444] font-[Poppins] min-h-screen"
     >
-        <!-- 📬 Header -->
-        <section class="text-center py-20 max-w-4xl mx-auto">
-            <h1 class="text-5xl font-extrabold mb-4">Get in Touch</h1>
-            <p class="text-lg text-gray-600">
-                We’d love to hear from you! Whether you have a question,
-                feedback, or want to plan a tour — reach out.
+        <section class="text-center py-10 max-w-2xl mx-auto mt-6">
+            <h3
+                class="text-3xl font-semibold mb-2 leading-tight tracking-tight text-purple-900"
+            >
+                Connect with Adorn DMC
+            </h3>
+
+            <p class="text-base text-gray-600">
+                Curious about our tours, need help planning, or just want to
+                chat? Our team is here to assist every step of the way.
             </p>
         </section>
 
-        <!-- 📝 Form + Info -->
         <section
-            class="max-w-6xl mx-auto pb-32 grid md:grid-cols-2 gap-12 items-start"
+            class="max-w-6xl mx-auto pb-32 grid md:grid-cols-2 gap-16 items-start"
         >
-            <!-- Form -->
-            <form @submit.prevent="submitForm" class="space-y-6">
+            <!-- Snackbar Message -->
+            <v-snackbar
+                v-model="snackbarVisible"
+                :color="snackbarType"
+                top
+                right
+                timeout="3000"
+            >
+                {{ snackbarMessage }}
+            </v-snackbar>
+            <form
+                @submit.prevent="submitForm"
+                class="space-y-6 bg-gray-50 p-10 rounded-2xl shadow-xl px-3"
+            >
+                <h2
+                    class="text-2xl font-semibold text-purple-700 mb-6 text-center"
+                >
+                    Send Us a Message
+                </h2>
+
                 <div>
-                    <label class="block text-sm font-medium mb-1"
+                    <label class="block text-sm font-medium mb-1 text-gray-700"
                         >Full Name*</label
                     >
                     <v-text-field
@@ -32,7 +53,7 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-1"
+                    <label class="block text-sm font-medium mb-1 text-gray-700"
                         >Email Address*</label
                     >
                     <v-text-field
@@ -49,12 +70,12 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-1"
+                    <label class="block text-sm font-medium mb-1 text-gray-700"
                         >Message*</label
                     >
                     <v-textarea
                         v-model="form.message"
-                        placeholder="Your message..."
+                        placeholder="How can we help you?"
                         rows="5"
                         outlined
                         variant="solo"
@@ -62,42 +83,62 @@
                     />
                 </div>
 
-                <v-btn
-                    :loading="isSubmitting"
-                    :disabled="isSubmitting"
-                    type="submit"
-                    color="primary"
-                    class="rounded-full px-8 py-3 text-white font-medium shadow-md"
-                >
-                    Send Message
-                </v-btn>
+                <!-- Centered Button -->
+                <div class="text-center pt-4">
+                    <v-btn
+                        :loading="isSubmitting"
+                        :disabled="isSubmitting"
+                        type="submit"
+                        color="primary"
+                        class="rounded-full px-10 py-3 text-white font-semibold shadow-md text-lg mb-4"
+                    >
+                        Send Message
+                    </v-btn>
+                </div>
             </form>
 
-            <!-- Contact Info -->
-            <div class="space-y-8 text-center md:text-left">
+            <div class="space-y-10 text-center md:text-left">
                 <div>
-                    <h3 class="text-xl font-bold mb-1">Our Office</h3>
-                    <p class="text-gray-600">
-                        Kilimani, Nairobi<br />Suite 12B, NairoPoint Plaza
+                    <h3 class="text-2xl font-bold text-purple-700 mb-2">
+                        Our Office
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Kilimani, Nairobi<br />
+                        Suite 12B, NairoPoint Plaza
                     </p>
                 </div>
 
                 <div>
-                    <h3 class="text-xl font-bold mb-1">Mailing Address</h3>
-                    <p class="text-gray-600">
-                        P.O. Box 45678-00100<br />Nairobi, Kenya
+                    <h3 class="text-2xl font-bold text-purple-700 mb-2">
+                        Mailing Address
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        P.O. Box 45678-00100<br />
+                        Nairobi, Kenya
                     </p>
                 </div>
 
                 <div>
-                    <h3 class="text-xl font-bold mb-1">Email</h3>
-                    <p class="text-gray-600">
+                    <h3 class="text-2xl font-bold text-purple-700 mb-2">
+                        Email
+                    </h3>
+                    <p>
                         <a
-                            href="mailto:info@adorn.com"
-                            class="text-purple-600 hover:underline"
-                            >info@adorndmc.com</a
+                            href="mailto:info@adorndmc.com"
+                            class="text-purple-600 hover:underline text-lg"
                         >
+                            info@adorndmc.com
+                        </a>
                     </p>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-bold text-purple-700 mb-2">
+                        Phone
+                    </h3>
+                    <p class="text-gray-600 text-lg">+254 725 608 207</p>
+                    <br />
+                    <p class="text-gray-600 text-lg">+254 726 678 163</p>
                 </div>
             </div>
         </section>
@@ -107,6 +148,10 @@
 import { ref, watch } from "vue";
 import axios from "axios";
 import { useSnackbar } from "@/composables/snackbar";
+
+const snackbarVisible = ref(false); // Control snackbar visibility
+const snackbarMessage = ref("");
+const snackbarType = ref("success");
 
 const form = ref({
     name: "",
@@ -121,49 +166,53 @@ const errors = ref({
 const isSubmitting = ref(false);
 
 const isValidEmail = (email) => {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 };
 
-
 watch(
-  () => form.value.email,
-  (newEmail) => {
-    if (!newEmail) {
-      errors.value.email = "Email is required.";
-    } else if (!isValidEmail(newEmail)) {
-      errors.value.email = "Please enter a valid email address.";
-    } else {
-      errors.value.email = null;
+    () => form.value.email,
+    (newEmail) => {
+        if (!newEmail) {
+            errors.value.email = "Email is required.";
+        } else if (!isValidEmail(newEmail)) {
+            errors.value.email = "Please enter a valid email address.";
+        } else {
+            errors.value.email = null;
+        }
     }
-  }
 );
-
 
 const submitForm = async () => {
     if (!form.value.name || !form.value.email || !form.value.message) {
-        useSnackbar("Please fill all required fields.", "error");
+        snackbarMessage.value = "Please fill all required fields.";
+        snackbarType.value = "error";
+        snackbarVisible.value = true;
         return;
     }
 
     if (errors.value.email) {
-        useSnackbar("Please fix the email field.", "error");
+        snackbarMessage.value = "Please fix the email field.";
+        snackbarType.value = "error";
+        snackbarVisible.value = true;
         return;
     }
 
     isSubmitting.value = true;
     try {
         await axios.post("/api/contact", form.value);
-        useSnackbar("Message sent successfully!", "success");
+        snackbarMessage.value = "Message sent successfully!";
+        snackbarType.value = "success";
+        snackbarVisible.value = true;
         form.value = {
             name: "",
             email: "",
             message: "",
         };
     } catch (error) {
-        useSnackbar(
-            error?.response?.data?.message || "Something went wrong.",
-            "error"
-        );
+        snackbarMessage.value =
+            error?.response?.data?.message || "Something went wrong.";
+        snackbarType.value = "error";
+        snackbarVisible.value = true;
     } finally {
         isSubmitting.value = false;
     }

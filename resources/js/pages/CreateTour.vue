@@ -348,7 +348,7 @@ const submitTour = async () => {
 
         await axios.post("/api/tours", data);
         alert("Tour created successfully");
-        router.push({ name: "tours.index" });
+        router.push("/admin/tours");
     } catch (error) {
         console.error("Tour creation failed:", error);
         alert("Failed to create tour");

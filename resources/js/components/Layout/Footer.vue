@@ -5,34 +5,40 @@
       <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
         <!-- Brand + Description -->
         <div class="space-y-4">
+          <!-- Logo & Brand -->
           <div class="flex items-center gap-3">
             <img 
-              :src=adorn
+              :src="adorn"
               alt="Adorn Logo" 
               class="w-10 h-10 object-contain animate-spin-slow"
-            >
-            <h2 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-cyan-400">
-              Adorn Tours
+            />
+            <h2 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
+              Adorn DMC Travel
             </h2>
           </div>
-          <p class="text-sm leading-relaxed text-gray-400">
-            Where learning meets adventure. We offer curated educational travel experiences for students, teachers, and families to explore the world together.
+        
+          <!-- Refined Description -->
+          <p class="text-sm leading-relaxed text-gray-600 max-w-md">
+            Championing the power of travel to transform education. At Adorn DMC, we craft immersive, curriculum-aligned journeys that empower students, support educators, and open hearts to the world.
           </p>
+        
+          <!-- Social Icons -->
           <div class="flex gap-4 pt-2">
-            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+            <a href="#" class="text-purple-500 hover:text-purple-700 transition-colors duration-300">
               <v-icon size="20">mdi-facebook</v-icon>
             </a>
-            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+            <a href="#" class="text-purple-500 hover:text-purple-700 transition-colors duration-300">
               <v-icon size="20">mdi-twitter</v-icon>
             </a>
-            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+            <a href="#" class="text-purple-500 hover:text-purple-700 transition-colors duration-300">
               <v-icon size="20">mdi-instagram</v-icon>
             </a>
-            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+            <a href="#" class="text-purple-500 hover:text-purple-700 transition-colors duration-300">
               <v-icon size="20">mdi-linkedin</v-icon>
             </a>
           </div>
         </div>
+        
 
         <!-- Quick Links -->
         <div>
@@ -126,39 +132,60 @@
 
         <!-- Contact Info -->
         <div>
-          <h3 class="text-lg font-semibold mb-5 text-white/90 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-10 after:h-0.5 after:bg-gradient-to-r after:from-purple-500 after:to-cyan-500">
+          <!-- Header -->
+          <h3
+            class="text-lg font-semibold mb-5 text-white/90 relative pb-2 after:absolute after:bottom-0 after:left-0 after:w-10 after:h-0.5 after:bg-gradient-to-r after:from-purple-500 after:to-indigo-500"
+          >
             Contact Us
           </h3>
+        
+          <!-- Contact Info -->
           <div class="space-y-4">
+            <!-- Email -->
             <div class="flex items-start">
               <v-icon size="18" class="mt-0.5 mr-3 text-purple-400">mdi-email</v-icon>
               <div>
-                <p class="text-sm text-gray-400">Email us at</p>
-                <a href="mailto:info@adorndmc.com" class="text-white hover:text-purple-300 transition-colors">info@adorn.com</a>
+                <p class="text-sm text-gray-400">Email</p>
+                <a
+                  href="mailto:info@adorndmc.com"
+                  class="text-white hover:text-purple-300 transition-colors"
+                >
+                  info@adorndmc.com
+                </a>
               </div>
             </div>
+        
+            <!-- Phone -->
             <div class="flex items-start">
               <v-icon size="18" class="mt-0.5 mr-3 text-purple-400">mdi-phone</v-icon>
               <div>
-                <p class="text-sm text-gray-400">Call us</p>
-                <a href="tel:+254700000000" class="text-white hover:text-purple-300 transition-colors">+254 700 000 000</a>
+                <p class="text-sm text-gray-400">Call Us</p>
+                <a
+                  href="tel:+254700000000"
+                  class="text-white hover:text-purple-300 transition-colors"
+                >
+                  +254 700 000 000
+                </a>
               </div>
             </div>
+        
+            <!-- Address -->
             <div class="flex items-start">
               <v-icon size="18" class="mt-0.5 mr-3 text-purple-400">mdi-map-marker</v-icon>
               <div>
-                <p class="text-sm text-gray-400">Visit us</p>
+                <p class="text-sm text-gray-400">Location</p>
                 <p class="text-white">Nairobi, Kenya</p>
               </div>
             </div>
           </div>
         </div>
+        
       </div>
 
       <!-- Copyright + Bottom Links -->
       <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center">
         <div class="text-sm text-gray-500 mb-4 md:mb-0">
-          &copy; {{ new Date().getFullYear() }} Adorn. All rights reserved.
+          &copy; {{ new Date().getFullYear() }} Adorn DMC. All rights reserved.
         </div>
         <div class="flex gap-6 text-sm">
           <router-link to="/privacy" class="text-gray-500 hover:text-white transition-colors">Privacy Policy</router-link>

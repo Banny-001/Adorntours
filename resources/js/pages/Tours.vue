@@ -180,7 +180,6 @@
                         <button
                             @click="resetFilters"
                             class="self-end py-4 px-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white border border-purple-300 rounded-full hover:bg-purple-100 transition-all duration-300 flex items-center"
-
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -317,8 +316,6 @@
                     <button
                         @click="resetFilters"
                         class="mt-6 px-6 py-2 bg-purple-600 text-purple border border-purple-300 rounded-lg hover:bg-purple-700 transition-colors"
-                       
-
                     >
                         Clear All Filters
                     </button>
@@ -339,7 +336,7 @@
                         ></div>
 
                         <!-- Tour image with zoom effect -->
-                        <div class="relative h-56 overflow-hidden">
+                        <div class="relative h-72 overflow-hidden">
                             <img
                                 :src="tour.image"
                                 :alt="tour.title"
@@ -387,14 +384,14 @@
                         <!-- Card content with fade effects -->
                         <div class="p-6 space-y-4 bg-white flex-grow">
                             <h3
-                                class="text-xl font-semibold text-[#201444] group-hover:text-purple-700 transition-colors duration-300"
+                                class="text-xl font-semibold text-[#201444] group-hover:text-purple-700 transition-colors duration-300 px-3"
                             >
                                 {{ tour.title }}
                             </h3>
 
                             <div class="flex flex-wrap gap-2 text-xs">
                                 <span
-                                    class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded flex items-center"
+                                    class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded flex items-center px-3"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -419,7 +416,7 @@
                                     {{ tour.region }}
                                 </span>
                                 <span
-                                    class="bg-teal-100 text-teal-800 px-2 py-1 rounded flex items-center"
+                                    class="bg-teal-100 text-teal-800 px-2 py-1 rounded flex items-center px-4"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -439,7 +436,7 @@
                                 </span>
                             </div>
 
-                            <p class="text-sm text-gray-600">
+                            <p class="text-sm text-gray-600 px-3">
                                 {{
                                     expandedTourId === tour.id
                                         ? tour.full_description
@@ -454,7 +451,7 @@
                                     tour.has_guide ||
                                     tour.accommodation
                                 "
-                                class="flex space-x-4 pt-2"
+                                class="flex space-x-4 pt-2 px-3"
                             >
                                 <div
                                     v-if="tour.min_group_size"
@@ -525,37 +522,39 @@
 
                         <!-- Card footer with enhanced buttons -->
                         <button
-                            class="text-sm font-medium text-purple-700 hover:text-purple-900 flex items-center cursor-pointer"
-                            @click="toggleDescription(tour.id)"
+                        class="text-sm font-medium text-purple-700 hover:text-purple-900 flex items-center cursor-pointer px-3"
+                        @click="toggleDescription(tour.id)"
+                      >
+                        {{
+                          expandedTourId === tour.id ? "Show Less" : "Learn More"
+                        }}
+                      
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-4 w-4 ml-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
                         >
-                            {{
-                                expandedTourId === tour.id
-                                    ? "Show Less"
-                                    : "Learn More"
-                            }}
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-4 w-4 ml-1"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    v-if="expandedTourId === tour.id"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M5 15l7-7 7 7"
-                                />
-                                <path
-                                    v-else
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M19 9l-7 7-7-7"
-                                />
-                            </svg>
-                        </button>
+                        <template v-if="expandedTourId === tour.id">
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M5 15l7-7 7 7"
+                            />
+                          </template>
+                          <template v-else>
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </template>
+                        </svg>
+                      </button>
+                      
 
                         <!-- Hover effect overlay - indicates clickable card -->
                         <div

@@ -71,4 +71,26 @@ class AuthenticationController extends Controller
         // regenerate CSRF token
         $request->session()->regenerateToken();
     }
+    public function register(Request $request)
+{
+    $data = $request->validate([
+        'name'     => 'required',
+        'email'    => 'required',
+        'password' => 'required',
+    ]);
+
+    // Hash password before save
+    $data['password'] = Hash::make($data['password']);
+
+    $user = User::create($data);   // ← $data is still an array; works fine
+
+    // e.g. Sanctum token (optional)
+    // $token = $user->createToken('api')->plainTextToken;
+
+    return response()->json([
+        'message' => 'User registered successfully',
+        // 'token'   => $token
+    ], 201);
+}
+
 }

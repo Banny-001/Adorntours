@@ -55,7 +55,7 @@ class TourController extends Controller
             'country_id' => 'required|exists:countries,id',
             'region' => 'required|string|max:255',
             'destination' => 'required|string|max:255',
-            'image' => 'required|image|max:2048',
+            'image' => 'required|image',
             'short_description' => 'required|string',
             'full_description' => 'required|string',
             'duration' => 'required|string|max:255',

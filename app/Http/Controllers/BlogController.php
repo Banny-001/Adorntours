@@ -52,7 +52,7 @@ class BlogController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'image_url' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image_url' => 'nullable|image',
             'category' => 'required|string|max:255',
             'tags' => 'nullable',
             'tags.*' => 'string|max:255',
@@ -132,7 +132,7 @@ class BlogController extends Controller
             'tags' => 'nullable',
             'tags.*' => 'string|max:255',
             'author_name' => 'required|string|max:255',
-            'author_avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
+            'author_avatar' => 'nullable|image',
             'featured' => 'sometimes|boolean',
             'published_at' => 'required|date',
             'meta_title' => 'nullable|string|max:255',

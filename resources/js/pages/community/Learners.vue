@@ -106,7 +106,7 @@
                 </p>
                 <v-btn
                     color="primary"
-                    class="rounded-full px-10 py-4 text-lg font-medium shadow-xl hover:scale-105 transition-transform"
+                    class="rounded-full px-16 h-60 text-xl font-semibold shadow-xl hover:scale-105 transition-transform mt-10"
                     elevation="8"
                 >
                     Explore Learning Adventures
@@ -127,7 +127,6 @@
                         life
                     </p>
                 </div>
-
                 <div class="grid gap-16 md:grid-cols-2 items-center">
                     <!-- Block 1: Interactive History -->
                     <div class="order-2 md:order-1 space-y-4">
@@ -156,14 +155,12 @@
                     </div>
                     <div
                         class="order-1 md:order-2 overflow-hidden rounded-2xl shadow-xl"
-                    >
-                        
-                    </div>
+                    ></div>
 
                     <!-- Block 2: Global Connections -->
-                    <div class="order-2 overflow-hidden rounded-2xl shadow-xl">
-                       
-                    </div>
+                    <div
+                        class="order-2 overflow-hidden rounded-2xl shadow-xl"
+                    ></div>
                     <div class="order-1 space-y-4">
                         <div class="flex items-center space-x-2 mb-2">
                             <div
@@ -218,9 +215,7 @@
                     </div>
                     <div
                         class="order-1 md:order-2 overflow-hidden rounded-2xl shadow-xl"
-                    >
-                       
-                    </div>
+                    ></div>
                 </div>
             </div>
         </section>
@@ -440,7 +435,7 @@
             <div
                 class="absolute inset-0 bg-gradient-to-br from-purple-50 to-indigo-50"
             ></div>
-           
+
             <div class="container mx-auto px-4 relative z-10 text-center">
                 <h2 class="text-4xl font-bold mb-6 animate-fade-in">
                     Begin Your Educational Journey
@@ -454,7 +449,7 @@
                 <div class="flex flex-wrap justify-center gap-6">
                     <v-btn
                         color="primary"
-                        class="rounded-full text-lg px-10 py-4 font-semibold shadow-xl hover:scale-105 transition-transform"
+                        class="rounded-full text-lg px-10  font-semibold shadow-xl hover:scale-105 transition-transform "
                         elevation="8"
                         to="/tours"
                     >
@@ -463,7 +458,7 @@
                     <v-btn
                         variant="outlined"
                         color="secondary"
-                        class="rounded-full text-lg px-10 py-4 font-semibold hover:bg-purple-50 transition"
+                        class="rounded-full text-lg px-10  font-semibold hover:bg-purple-50 transition"
                         to="/contact"
                     >
                         Request Custom Tour
@@ -477,10 +472,10 @@
                     <div
                         class="p-6 bg-white rounded-xl shadow hover:shadow-lg transition"
                     >
-                        <h3 class="text-xl font-bold text-purple-700 mb-4">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4 px-3">
                             For Teachers
                         </h3>
-                        <p class="text-gray-700 mb-4">
+                        <p class="text-gray-700 mb-4 px-3">
                             Curriculum guides, pre-trip classroom activities,
                             and post-trip reflection materials to maximize
                             educational impact.
@@ -491,16 +486,16 @@
                             to="/teacher-resources"
                         >
                             Teacher Resources
-                            <span class="ml-2">→</span>
+                            <span class="ml-2 px-3">→</span>
                         </v-btn>
                     </div>
                     <div
-                        class="p-6 bg-white rounded-xl shadow hover:shadow-lg transition"
+                        class="p-6 bg-white rounded-xl shadow hover:shadow-lg transition "
                     >
-                        <h3 class="text-xl font-bold text-purple-700 mb-4">
+                        <h3 class="text-xl font-bold text-purple-700 mb-4 px-3">
                             For Parents
                         </h3>
-                        <p class="text-gray-700 mb-4">
+                        <p class="text-gray-700 mb-4 px-3">
                             Safety information, preparation checklists, and
                             details about our educational approach and values.
                         </p>

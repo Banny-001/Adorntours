@@ -1,6 +1,6 @@
 <template>
     <div
-        class="relative h-[90vh] w-full overflow-hidden rounded-none md:rounded-xl shadow-lg"
+        class="relative h-[100vh] w-full overflow-hidden rounded-none md:rounded-xl shadow-lg"
     >
         <!-- Slides -->
         <transition-group name="fade" tag="div">

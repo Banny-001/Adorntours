@@ -1,17 +1,16 @@
 <template>
     <div
-        class="min-h-screen flex items-center justify-center font-[Poppins] relative overflow-hidden px-4"
+    class="min-h-screen flex items-center justify-center font-[Poppins] bg-gradient-to-tr from-purple-700 via-purple-500 to-indigo-500 px-4 pt-20"
     >
         
-        <!-- 🔐 Login Card -->
         <v-card
             class="relative z-10 w-full max-w-md px-8 py-10 bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/20"
             elevation="10"
         >
             <div class="text-center mb-10">
-                <h1 class="text-4xl font-extrabold text-white">Welcome Back</h1>
-                <p class="text-white/70 mt-2">
-                    Login to access your educational journey
+                <h1 class="text-4xl font-extrabold text-purple">Welcome Back</h1>
+                <p class="text-black/70 mt-2">
+                    Login to ADORN DMC
                 </p>
             </div>
 
@@ -24,7 +23,7 @@
                     class="custom-input"
                     hide-details
                     density="comfortable"
-                />
+                /><br>
 
                 <v-text-field
                     v-model="form.password"
@@ -38,7 +37,7 @@
                         showPassword ? 'mdi-eye-off' : 'mdi-eye'
                     "
                     @click:append-inner="togglePassword"
-                />
+                /><br>
 
                 <div class="pt-2">
                     <v-btn

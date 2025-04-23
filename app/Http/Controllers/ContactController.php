@@ -52,7 +52,6 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        // ✅ Validate the request
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',

@@ -18,7 +18,9 @@ class CountrySeeder extends Seeder
             'Ghana',
             'Egypt',
             'Ethiopia',
-            'Morocco'
+            'Morocco',
+            'Greece',
+            'Paris'
         ];
 
         foreach ($countries as $name) {
