@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('country');
             $table->string('region');
-            $table->string('destination'); // ✅ Newly added field
+            $table->string('destination'); // 
             $table->string('image')->nullable(); // Will store path to uploaded image
             $table->text('short_description');
             $table->text('full_description');

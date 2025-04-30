@@ -12,29 +12,37 @@ class TourController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
-        $perPage = $request->input('per_page', 10);
-        $tours = Tour::query()
-            ->when($request->has('search'), function ($query) use ($request) {
-                $search = $request->input('search');
-                $query->where('title', 'like', "%{$search}%")
-                    ->orWhere('country', 'like', "%{$search}%")
-                    ->orWhere('region', 'like', "%{$search}%");
-            })
-            ->when($request->has('is_featured'), function ($query) use ($request) {
-                $query->where('is_featured', $request->boolean('is_featured'));
-            })
-            ->orderBy('created_at', 'desc')
-            ->paginate($perPage);
+{
+    $perPage = $request->input('per_page', 10);
 
-        return response()->json([
-            'data' => $tours->items(),
-            'total' => $tours->total(),
-            'current_page' => $tours->currentPage(),
-            'per_page' => $tours->perPage(),
-            'last_page' => $tours->lastPage(),
-        ]);
-    }
+    $tours = Tour::query()
+        ->with('country') // <-- critical
+        ->when($request->has('search'), function ($query) use ($request) {
+            $search = $request->input('search');
+            $query->where('title', 'like', "%{$search}%")
+                ->orWhereHas('country', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                });
+        })
+        ->when($request->has('country_id'), function ($query) use ($request) {
+            $query->where('country_id', $request->input('country_id'));
+        })
+        ->when($request->has('is_featured'), function ($query) use ($request) {
+            $query->where('is_featured', $request->boolean('is_featured'));
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate($perPage);
+
+    return response()->json([
+        'data' => $tours->items(),
+        'total' => $tours->total(),
+        'current_page' => $tours->currentPage(),
+        'per_page' => $tours->perPage(),
+        'last_page' => $tours->lastPage(),
+    ]);
+}
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -52,7 +60,7 @@ class TourController extends Controller
         $validator = \Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:tours,slug',
-            'country_id' => 'required|exists:countries,id',
+            'country_id' => 'required|exists:countries,id', 
             'region' => 'required|string|max:255',
             'destination' => 'required|string|max:255',
             'image' => 'required|image',
@@ -79,7 +87,7 @@ class TourController extends Controller
         $tour = Tour::create([
             'title' => $request->title,
             'slug' => \Str::slug($request->slug),
-            'country' => Country::find($request->country_id)->name,
+            'country_id' => $request->country_id,
             'region' => $request->region,
             'destination' => $request->destination,
             'image' => asset('storage/' . $imagePath),
@@ -130,7 +138,7 @@ class TourController extends Controller
             'title' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255',
             'region' => 'nullable|string|max:255',
-            'country' => 'nullable|string|max:255',
+            'country_id' => 'nullable|string|max:255',
             'short_description' => 'nullable|string',
             'full_description' => 'nullable|string',
             'details' => 'nullable|string',

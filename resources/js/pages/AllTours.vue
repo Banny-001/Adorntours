@@ -43,11 +43,12 @@
                         column.title
                     }}</span>
                 </template>
-                <template v-slot:column.country="{ column }">
-                    <span class="font-semibold text-[#6a4c93]">{{
-                        column.title
-                    }}</span>
-                </template>
+                <template v-slot:item["country.name"]="{ item }">
+                    <span class="font-semibold text-[#6a4c93]">
+                      {{ item.country?.name }}
+                    </span>
+                  </template>
+                  
                 <template v-slot:column.region="{ column }">
                     <span class="font-semibold text-[#6a4c93]">{{
                         column.title
@@ -93,7 +94,7 @@
                 <!-- Price -->
                 <template v-slot:item.price="{ item }">
                     <span class="text-[#201444] font-medium"
-                        >Ksh {{ item.price.toLocaleString() }}</span
+                        >${{ item.price.toLocaleString() }}</span
                     >
                 </template>
 
@@ -128,7 +129,7 @@ import axios from "axios";
 const headers = ref([
     { title: "Image", value: "image", sortable: false },
     { title: "Title", value: "title", sortable: true },
-    { title: "Country", value: "country", sortable: true },
+    { title: "Country", value: "country.name", sortable: true },
     { title: "Region", value: "region", sortable: true },
     { title: "Duration", value: "duration", sortable: true },
     { title: "Price", value: "price", sortable: true },

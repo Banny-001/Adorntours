@@ -16,6 +16,9 @@
             </div>
 
             <v-form @submit.prevent="handleRegister" class="space-y-5">
+                <div v-if="errorMessage" class="mt-4 text-red-500 text-center font-semibold">
+                    {{ errorMessage }}
+                </div>
                 <v-text-field
                     v-model="form.name"
                     label="Full Name"
@@ -59,13 +62,13 @@
                 </v-btn>
             </v-form>
 
-            <div class="mt-8 text-center text-white/80 text-sm">
+            <div class="mt-8 text-center text-black/80 text-sm">
                 Already have an account?
                 <router-link
                     to="/login"
                     class="font-semibold underline hover:text-white"
                 >
-                    Log in
+                    Login
                 </router-link>
             </div>
         </v-card>
@@ -75,6 +78,7 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios"; // adjust path
+import { useRouter } from "vue-router";
 
 const form = ref({
     name: "",
@@ -82,19 +86,27 @@ const form = ref({
     password: "",
 });
 const showPassword = ref(false);
+const errorMessage = ref(""); 
+const router = useRouter(); 
 
 function togglePassword() {
     showPassword.value = !showPassword.value;
 }
 
 async function handleRegister() {
+    errorMessage.value = ""; 
     try {
         await axios.post("/api/register", form.value);
         // optional: auto‑login or redirect
-        alert("Registration successful—please log in!");
         router.push("/login");
     } catch (e) {
-        alert("Registration failed. Please check your details.");
+        if (e.response && e.response.status === 403) {
+            errorMessage.value = "You are not authorized to register.";
+        } else if (e.response && e.response.data?.message) {
+            errorMessage.value = e.response.data.message;
+        } else {
+            errorMessage.value = "Registration failed. Please try again.";
+        }
     }
 }
 </script>

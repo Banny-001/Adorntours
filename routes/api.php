@@ -6,6 +6,8 @@ use App\Http\Controllers\CustomTourController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\RegionController;
+use App\Http\Controllers\ResourceController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +25,14 @@ Route::resource('blogs', BlogController::class);
 Route::put('/blogs/{id}/archive',[BlogController::class,'archive']);
 Route::resource('contact', ContactController::class);
 Route::resource('custom-tours', CustomTourController::class);
+Route::get('/regions/{country_id}', [RegionController::class, 'getByCountry']);
+Route::get('/resources', [ResourceController::class, 'index']);
+Route::post('/resources', [ResourceController::class, 'store']);
+Route::get('/resources/{id}', [ResourceController::class, 'show']);
+Route::put('/resources/{id}', [ResourceController::class, 'update']);
+Route::delete('/resources/{id}', [ResourceController::class, 'destroy']);
+Route::get('/resources/{id}/download', [ResourceController::class, 'download']);
+
 
 
 Route::post('login', [AuthenticationController::class, 'login']);

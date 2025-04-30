@@ -85,10 +85,10 @@
                                     <option value="">All Countries</option>
                                     <option
                                         v-for="country in uniqueCountries"
-                                        :key="country"
-                                        :value="country"
+                                        :key="country?.id"   
+                                        :value="country?.name"
                                     >
-                                        {{ country }}
+                                        {{ country?.name }}
                                     </option>
                                 </select>
                                 <div
@@ -217,7 +217,7 @@
                     >
                         <span>Country: {{ filters.country }}</span>
                         <button
-                            @click="filters.country = ''"
+                            @click="filters.country = null"
                             class="ml-2 text-purple-600 hover:text-purple-800"
                         >
                             <svg
@@ -347,7 +347,8 @@
                             <div
                                 class="absolute top-4 right-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs px-3 py-1 rounded-full shadow-md z-20"
                             >
-                                {{ tour.country }}
+                          
+                                {{ tour.country?.name }}
                             </div>
 
                             <!-- Price badge - floating on image -->
@@ -377,7 +378,7 @@
                                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                                     />
                                 </svg>
-                                {{ tour.duration }} days
+                                {{ tour.duration }}
                             </div>
                         </div>
 
@@ -436,13 +437,7 @@
                                 </span>
                             </div>
 
-                            <p class="text-sm text-gray-600 px-3">
-                                {{
-                                    expandedTourId === tour.id
-                                        ? tour.full_description
-                                        : tour.short_description
-                                }}
-                            </p>
+                           
 
                             <!-- Features Icons -->
                             <div
@@ -517,44 +512,61 @@
                                     </svg>
                                     Accommodation
                                 </div>
-                            </div>
+                               
+                            </div><br>
+                            <p class="text-sm text-gray-600 px-3">
+                                {{ tour.short_description }}
+                                {{ tour.full_description }}
+                                <!-- {{
+                                    expandedTourId === tour.id
+                                        ? tour.full_description
+                                        : tour.short_description
+                                }} -->
+                            </p><br>
                         </div>
 
                         <!-- Card footer with enhanced buttons -->
-                        <button
-                        class="text-sm font-medium text-purple-700 hover:text-purple-900 flex items-center cursor-pointer px-3"
-                        @click="toggleDescription(tour.id)"
-                      >
-                        {{
-                          expandedTourId === tour.id ? "Show Less" : "Learn More"
-                        }}
-                      
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="h-4 w-4 ml-1"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
+                        <!-- <button
+                            @click="toggleDescription(tour.id)"
+                            class="text-sm font-medium text-purple-700 hover:text-purple-900 flex items-center cursor-pointer px-3"
                         >
-                        <template v-if="expandedTourId === tour.id">
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M5 15l7-7 7 7"
-                            />
-                          </template>
-                          <template v-else>
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M19 9l-7 7-7-7"
-                            />
-                          </template>
-                        </svg>
-                      </button>
-                      
+                            {{
+                                expandedTourId === tour.id
+                                    ? "Show Less"
+                                    : "Learn More"
+                            }}
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-4 w-4 ml-1"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    v-if="expandedTourId === tour.id"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M5 15l7-7 7 7"
+                                />
+                                <path
+                                    v-else
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M19 9l-7 7-7-7"
+                                />
+                            </svg>
+                        </button> -->
+
+                        <!-- Show full description -->
+                        <div
+                            v-if="expandedTourId === tour.id"
+                            class="mt-2 text-gray-700 text-sm"
+                        >
+                            {{ tour.description }}
+                        </div>
 
                         <!-- Hover effect overlay - indicates clickable card -->
                         <div
@@ -1022,17 +1034,22 @@ const customTour = ref({
     duration: null,
     interests: "",
     additional_info: "",
+    
 });
 
 const filters = ref({
-    country: "",
+    country: null,
     region: "",
     city: "",
 });
 
 // Check if any filters are active
 const hasActiveFilters = computed(() => {
-    return filters.value.country || filters.value.region || filters.value.city;
+    return (
+        filters.value.country||
+        filters.value.region ||
+        filters.value.city
+    );
 });
 
 const expandedTourId = ref(null);
@@ -1045,6 +1062,11 @@ const countries = ref([]);
 const uniqueCountries = computed(() =>
     [...new Set(tours.value.map((t) => t.country))].sort()
 );
+// const uniqueCountries = computed(() =>
+//     [...new Set(tours.value.map((t) => t.country))].sort().filter(country => country !== null && country !== undefined)
+// );
+
+
 
 onMounted(async () => {
     try {
@@ -1275,6 +1297,14 @@ const closeSuccessModal = () => {
         opacity: 1;
         transform: scale(1);
     }
+}
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s;
+}
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
 }
 
 .animate-fadeIn {

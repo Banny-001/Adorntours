@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tour extends Model
 {
-    use HasFactory,SoftDeletes;
-  
+    use HasFactory, SoftDeletes;
+
 
     protected $fillable = [
         'title',
         'slug',
         'region',
-        'country',
+        'country_id',
         'image',
         'cover_image',
         'short_description',
@@ -30,6 +30,8 @@ class Tour extends Model
         'itinerary',
         'destination'
     ];
+    protected $with = ['country'];
+
 
     protected $casts = [
         'is_featured' => 'boolean',
@@ -41,5 +43,10 @@ class Tour extends Model
     public function country()
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
     }
 }

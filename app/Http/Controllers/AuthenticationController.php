@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,8 +25,8 @@ class AuthenticationController extends Controller
             return response(['message' => 'The provided credentials are incorrect.'], 401);
         }
 
-      
-       
+
+
 
         if (!Hash::check($request->password, $user->password)) {
             return response(['message' => 'The provided credentials are incorrect.'], 401);
@@ -72,25 +73,38 @@ class AuthenticationController extends Controller
         $request->session()->regenerateToken();
     }
     public function register(Request $request)
-{
-    $data = $request->validate([
-        'name'     => 'required',
-        'email'    => 'required',
-        'password' => 'required',
-    ]);
+    {
+        $allowedEmails = [
+            'arthur@adorndmc.com',
+            'info@adorndmc.com',
+            'lucy@adorndmc.com',
+            'accounts@adorndmc.com',
+            
+        ];
+        $data = $request->validate([
+            'name'     => 'required',
+            'email'    => 'required',
+            'password' => 'required',
+        ]);
 
-    // Hash password before save
-    $data['password'] = Hash::make($data['password']);
+        // Check if the email is in the allowed list
+        if (!in_array($data['email'], $allowedEmails)) {
+            return response()->json([
+                'message' => 'You are not authorized to register.',
+            ], 403);
+        }
 
-    $user = User::create($data);   // ← $data is still an array; works fine
+        // Hash password before save
+        $data['password'] = Hash::make($data['password']);
 
-    // e.g. Sanctum token (optional)
-    // $token = $user->createToken('api')->plainTextToken;
+        $user = User::create($data);   // ← $data is still an array; works fine
 
-    return response()->json([
-        'message' => 'User registered successfully',
-        // 'token'   => $token
-    ], 201);
-}
+        // e.g. Sanctum token (optional)
+        // $token = $user->createToken('api')->plainTextToken;
 
+        return response()->json([
+            'message' => 'User registered successfully',
+            // 'token'   => $token
+        ], 201);
+    }
 }

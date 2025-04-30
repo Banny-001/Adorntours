@@ -36,7 +36,7 @@
                 size="x-large"
                 rounded="lg"
                 class="px-8 py-3 font-semibold border-white"
-                :to="{ path: '/teacher-resources' }"
+                :to="{ path: '/teacher-resource' }"
               >
                 Explore Resources
               </v-btn>

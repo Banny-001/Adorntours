@@ -483,7 +483,7 @@
                         <v-btn
                             color="primary"
                             variant="text"
-                            to="/teacher-resources"
+                            to="/teacher-resource"
                         >
                             Teacher Resources
                             <span class="ml-2 px-3">→</span>

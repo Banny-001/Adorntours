@@ -21,7 +21,9 @@ import CreateTour from "./pages/CreateTour.vue";
 import EditTour from './pages/EditTour.vue';
 import EditBlog from './pages/EditBlogs.vue';
 import Register from './pages/register.vue';
-
+import TeacherResources from './pages/teacherResources.vue';
+import AdminResources from './pages/AdminResources.vue';
+import CreateResource from './pages/CreateResource.vue';
 
 const ifNotAuthenticated = (to, from) => {
     const authStore = useAuthStore();
@@ -96,7 +98,18 @@ const routes = [
         name: "EditBlog",
         beforeEnter: ifAuthenticated
     },
-   
+    {
+        path:"/teacher-resource",
+        component:TeacherResources,
+        name:"TeacherResources",
+        
+    },
+    {
+        path:"/admin/resource/create",
+        component:CreateResource,
+        name:"CreateRosource",
+        beforeEnter: ifAuthenticated
+    },
     {
         path: "/admin/tours",
         component: AllTours,
@@ -115,7 +128,12 @@ const routes = [
         name: "CustomTours",
         beforeEnter: ifAuthenticated
     },
-    
+    {
+        path:"/admin/resources",
+        component:AdminResources,
+        name:"AdminResources",
+        beforeEnter: ifAuthenticated
+    },
     {
         path: "/contact",
         component: Contact,

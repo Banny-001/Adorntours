@@ -126,7 +126,42 @@
                         <v-list-item-title>Create Blog</v-list-item-title>
                     </v-list-item>
                 </v-list-group>
-
+               <!-- resources -->
+               <v-list-group value="Blogs">
+                <template v-slot:activator="{ props }">
+                    <v-list-item
+                        v-bind="props"
+                        prepend-icon=" mdi-semanticWeb"
+                        title="Teacher Resources"
+                        rounded="xl"
+                        class="mb-1"
+                    ></v-list-item>
+                </template>
+                <v-list-item
+                        to="/admin/resources"
+                        active-class="active-nav-item"
+                        rounded="xl"
+                        class="mb-1 ml-4"
+                    >
+                        <template v-slot:prepend>
+                            <v-icon color="primary"
+                                >mdi-format-list-bulleted</v-icon
+                            >
+                        </template>
+                        <v-list-item-title>Teacher Resources</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item
+                    to="/admin/resource/create"
+                    active-class="active-nav-item"
+                    rounded="xl"
+                    class="mb-1 ml-4"
+                >
+                    <template v-slot:prepend>
+                        <v-icon color="primary">mdi-plus-circle</v-icon>
+                    </template>
+                    <v-list-item-title>Create Teacher Resource</v-list-item-title>
+                </v-list-item>
+                </v-list-group>
                 <!-- Custom Tours -->
                 <v-list-item
                     to="/admin/custom-tours"

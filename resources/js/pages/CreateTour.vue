@@ -56,20 +56,22 @@
                                     hide-details
                                 />
                             </v-col>
+
                             <v-col cols="12" sm="6">
                                 <div>Region</div>
                                 <v-text-field
                                     v-model="form.region"
                                     outlined
                                     dense
-                                    density="compact"
                                     class="bg-[#f2f2f2]"
+                                    density="compact"
                                     :rules="[
-                                        (v) => !!v || 'Region is required',
+                                        (v) => !!v || 'Destination is required',
                                     ]"
                                     hide-details
-                                />
+                                ></v-text-field>
                             </v-col>
+
                             <v-col cols="12" sm="6">
                                 <div>Destination</div>
                                 <v-text-field
@@ -99,7 +101,7 @@
                                 />
                             </v-col>
                             <v-col cols="12" sm="6">
-                                <div>Price (KES)*</div>
+                                <div>Price (Dollars)*</div>
                                 <v-text-field
                                     v-model.number="form.price"
                                     type="number"
@@ -122,38 +124,48 @@
                                 />
                             </v-col>
                             <v-col cols="12">
-                                <div class="mb-2 text-sm font-medium text-[#201444]">Tour Image</div>
-                              
+                                <div
+                                    class="mb-2 text-sm font-medium text-[#201444]"
+                                >
+                                    Tour Image
+                                </div>
+
                                 <!-- File icon label -->
-                                <label for="image-upload" class="cursor-pointer text-2xl text-purple-700">
-                                  <v-icon>mdi-file-image</v-icon>
+                                <label
+                                    for="image-upload"
+                                    class="cursor-pointer text-2xl text-purple-700"
+                                >
+                                    <v-icon>mdi-file-image</v-icon>
                                 </label>
-                              
+
                                 <!-- Hidden input -->
                                 <input
-                                  id="image-upload"
-                                  type="file"
-                                  accept="image/*"
-                                  @change="handleImageChange"
-                                  class="hidden"
+                                    id="image-upload"
+                                    type="file"
+                                    accept="image/*"
+                                    @change="handleImageChange"
+                                    class="hidden"
                                 />
-                              
+
                                 <!-- Show selected image name -->
-                                <div v-if="selectedFileName" class="mt-1 text-sm text-gray-700">
-                                  {{ selectedFileName }}
+                                <div
+                                    v-if="selectedFileName"
+                                    class="mt-1 text-sm text-gray-700"
+                                >
+                                    {{ selectedFileName }}
                                 </div>
-                              </v-col>
-                              
-                              <!-- Image preview -->
-                              <v-col cols="12" v-if="imagePreview">
+                            </v-col>
+
+                            <!-- Image preview -->
+                            <v-col cols="12" v-if="imagePreview">
                                 <v-img
-                                  :src="imagePreview"
-                                  width="300"
-                                  height="200"
-                                  class="rounded-xl mt-2 border border-gray-300 object-cover"
-                                  cover
+                                    :src="imagePreview"
+                                    width="300"
+                                    height="200"
+                                    class="rounded-xl mt-2 border border-gray-300 object-cover"
+                                    cover
                                 ></v-img>
-                              </v-col>
+                            </v-col>
                         </v-row>
                     </v-container>
                     <v-card-title
@@ -232,37 +244,31 @@
                         >Description</v-card-title
                     >
                     <v-container fluid>
-                      
-                            <div
-                                class="text-sm font-medium text-[#201444] mb-1"
-                            >
-                                Short Description
-                            </div>
-                            <v-textarea
-                                v-model="form.short_description"
-                                outlined
-                                class="bg-[#f2f2f2] text-sm py-2"
-                                rows="2"
-                                hide-details
-                                density="compact"
-                                :rules="[
-                                    (v) =>
-                                        !!v || 'Short description is required',
-                                ]"
-                            />
-                            <div>Full Description</div>
-                            <v-textarea
-                                v-model="form.full_description"
-                                outlined
-                               density="compact"
-                                class="bg-[#f2f2f2]"
-                                :rules="[
-                                    (v) =>
-                                        !!v || 'Full description is required',
-                                ]"
-                                hide-details
-                            />
-                       
+                        <div class="text-sm font-medium text-[#201444] mb-1">
+                            Short Description
+                        </div>
+                        <v-textarea
+                            v-model="form.short_description"
+                            outlined
+                            class="bg-[#f2f2f2] text-sm py-2"
+                            rows="2"
+                            hide-details
+                            density="compact"
+                            :rules="[
+                                (v) => !!v || 'Short description is required',
+                            ]"
+                        />
+                        <div>Full Description</div>
+                        <v-textarea
+                            v-model="form.full_description"
+                            outlined
+                            density="compact"
+                            class="bg-[#f2f2f2]"
+                            :rules="[
+                                (v) => !!v || 'Full description is required',
+                            ]"
+                            hide-details
+                        />
                     </v-container>
                     <!-- Submit Button -->
                     <div class="flex justify-end">
@@ -288,8 +294,8 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const loading = ref(false);
 const countries = ref([]);
-const imagePreview = ref(null)
-const selectedFileName = ref('');
+const imagePreview = ref(null);
+const selectedFileName = ref("");
 
 const form = ref({
     title: "",
@@ -312,16 +318,17 @@ const form = ref({
     end_date: "",
 });
 
-
+// Handle image file changes
 function handleImageChange(event) {
-  const file = event.target?.files?.[0];
-  if (file && file instanceof File) {
-    imagePreview.value = URL.createObjectURL(file);
-    selectedFileName.value = file.name;
-    form.value.image = file;
-  }
+    const file = event.target?.files?.[0];
+    if (file && file instanceof File) {
+        imagePreview.value = URL.createObjectURL(file);
+        selectedFileName.value = file.name;
+        form.value.image = file;
+    }
 }
 
+// Fetch the countries from the API when the component mounts
 onMounted(async () => {
     try {
         const res = await axios.get("/api/countries");
@@ -331,6 +338,7 @@ onMounted(async () => {
     }
 });
 
+// Submit the form data
 const submitTour = async () => {
     loading.value = true;
 
