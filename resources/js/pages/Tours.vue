@@ -1074,6 +1074,7 @@ onMounted(async () => {
             axios.get("/api/tours"),
             axios.get("/api/countries"),
         ]);
+        console.log("toursRes",toursRes);
 
         tours.value = (
             Array.isArray(toursRes.data) ? toursRes.data : toursRes.data.data

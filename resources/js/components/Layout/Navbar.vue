@@ -131,7 +131,7 @@
                 <template v-slot:activator="{ props }">
                     <v-list-item
                         v-bind="props"
-                        prepend-icon=" mdi-semanticWeb"
+                        prepend-icon="mdi-folder"
                         title="Teacher Resources"
                         rounded="xl"
                         class="mb-1"
@@ -193,7 +193,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch} from "vue";
 import { useRouter } from "vue-router";
 import {useAuthStore} from "@/stores/auth";
 
@@ -201,10 +201,19 @@ const router = useRouter();
 const drawer = ref(true);
 const authStore = useAuthStore();
 
+watch(
+  () => authStore.token,
+  (token) => {
+    if (!token) {
+      router.replace("/login");
+    }
+  }
+);
 const logout = async () => {
   try {
     await authStore.logout();
     router.replace("/login");
+    
   } catch (error) {
     console.error("Logout failed:", error);
   }
